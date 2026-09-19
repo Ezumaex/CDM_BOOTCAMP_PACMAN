@@ -1,0 +1,375 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 21.1.2 -fPIC -O3)
+
+1. Executing Verilog-2005 frontend: /home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/runs/wokwi/tmp/123103643f0146a983ff4cce5bfd128a.bb.v
+Parsing SystemVerilog input from `/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/runs/wokwi/tmp/123103643f0146a983ff4cce5bfd128a.bb.v' to AST representation.
+Generating RTLIL representation for module `\sg13g2_a21o_1'.
+Generating RTLIL representation for module `\sg13g2_a21o_2'.
+Generating RTLIL representation for module `\sg13g2_a21oi_1'.
+Generating RTLIL representation for module `\sg13g2_a21oi_2'.
+Generating RTLIL representation for module `\sg13g2_a221oi_1'.
+Generating RTLIL representation for module `\sg13g2_a22oi_1'.
+Generating RTLIL representation for module `\sg13g2_and2_1'.
+Generating RTLIL representation for module `\sg13g2_and2_2'.
+Generating RTLIL representation for module `\sg13g2_and3_1'.
+Generating RTLIL representation for module `\sg13g2_and3_2'.
+Generating RTLIL representation for module `\sg13g2_and4_1'.
+Generating RTLIL representation for module `\sg13g2_and4_2'.
+Generating RTLIL representation for module `\sg13g2_antennanp'.
+Generating RTLIL representation for module `\sg13g2_buf_1'.
+Generating RTLIL representation for module `\sg13g2_buf_16'.
+Generating RTLIL representation for module `\sg13g2_buf_2'.
+Generating RTLIL representation for module `\sg13g2_buf_4'.
+Generating RTLIL representation for module `\sg13g2_buf_8'.
+Generating RTLIL representation for module `\sg13g2_decap_4'.
+Generating RTLIL representation for module `\sg13g2_decap_8'.
+Generating RTLIL representation for module `\sg13g2_dfrbp_1'.
+Generating RTLIL representation for module `\sg13g2_dfrbp_2'.
+Generating RTLIL representation for module `\sg13g2_dfrbpq_1'.
+Generating RTLIL representation for module `\sg13g2_dfrbpq_2'.
+Generating RTLIL representation for module `\sg13g2_dlhq_1'.
+Generating RTLIL representation for module `\sg13g2_dlhr_1'.
+Generating RTLIL representation for module `\sg13g2_dlhrq_1'.
+Generating RTLIL representation for module `\sg13g2_dllr_1'.
+Generating RTLIL representation for module `\sg13g2_dllrq_1'.
+Generating RTLIL representation for module `\sg13g2_dlygate4sd1_1'.
+Generating RTLIL representation for module `\sg13g2_dlygate4sd2_1'.
+Generating RTLIL representation for module `\sg13g2_dlygate4sd3_1'.
+Generating RTLIL representation for module `\sg13g2_ebufn_2'.
+Generating RTLIL representation for module `\sg13g2_ebufn_4'.
+Generating RTLIL representation for module `\sg13g2_ebufn_8'.
+Generating RTLIL representation for module `\sg13g2_einvn_2'.
+Generating RTLIL representation for module `\sg13g2_einvn_4'.
+Generating RTLIL representation for module `\sg13g2_einvn_8'.
+Generating RTLIL representation for module `\sg13g2_fill_1'.
+Generating RTLIL representation for module `\sg13g2_fill_2'.
+Generating RTLIL representation for module `\sg13g2_fill_4'.
+Generating RTLIL representation for module `\sg13g2_fill_8'.
+Generating RTLIL representation for module `\sg13g2_inv_1'.
+Generating RTLIL representation for module `\sg13g2_inv_16'.
+Generating RTLIL representation for module `\sg13g2_inv_2'.
+Generating RTLIL representation for module `\sg13g2_inv_4'.
+Generating RTLIL representation for module `\sg13g2_inv_8'.
+Generating RTLIL representation for module `\sg13g2_lgcp_1'.
+Generating RTLIL representation for module `\sg13g2_mux2_1'.
+Generating RTLIL representation for module `\sg13g2_mux2_2'.
+Generating RTLIL representation for module `\sg13g2_mux4_1'.
+Generating RTLIL representation for module `\sg13g2_nand2_1'.
+Generating RTLIL representation for module `\sg13g2_nand2_2'.
+Generating RTLIL representation for module `\sg13g2_nand2b_1'.
+Generating RTLIL representation for module `\sg13g2_nand2b_2'.
+Generating RTLIL representation for module `\sg13g2_nand3_1'.
+Generating RTLIL representation for module `\sg13g2_nand3b_1'.
+Generating RTLIL representation for module `\sg13g2_nand4_1'.
+Generating RTLIL representation for module `\sg13g2_nor2_1'.
+Generating RTLIL representation for module `\sg13g2_nor2_2'.
+Generating RTLIL representation for module `\sg13g2_nor2b_1'.
+Generating RTLIL representation for module `\sg13g2_nor2b_2'.
+Generating RTLIL representation for module `\sg13g2_nor3_1'.
+Generating RTLIL representation for module `\sg13g2_nor3_2'.
+Generating RTLIL representation for module `\sg13g2_nor4_1'.
+Generating RTLIL representation for module `\sg13g2_nor4_2'.
+Generating RTLIL representation for module `\sg13g2_o21ai_1'.
+Generating RTLIL representation for module `\sg13g2_or2_1'.
+Generating RTLIL representation for module `\sg13g2_or2_2'.
+Generating RTLIL representation for module `\sg13g2_or3_1'.
+Generating RTLIL representation for module `\sg13g2_or3_2'.
+Generating RTLIL representation for module `\sg13g2_or4_1'.
+Generating RTLIL representation for module `\sg13g2_or4_2'.
+Generating RTLIL representation for module `\sg13g2_sdfbbp_1'.
+Generating RTLIL representation for module `\sg13g2_sdfrbp_1'.
+Generating RTLIL representation for module `\sg13g2_sdfrbp_2'.
+Generating RTLIL representation for module `\sg13g2_sdfrbpq_1'.
+Generating RTLIL representation for module `\sg13g2_sdfrbpq_2'.
+Generating RTLIL representation for module `\sg13g2_sighold'.
+Generating RTLIL representation for module `\sg13g2_slgcp_1'.
+Generating RTLIL representation for module `\sg13g2_tiehi'.
+Generating RTLIL representation for module `\sg13g2_tielo'.
+Generating RTLIL representation for module `\sg13g2_xnor2_1'.
+Generating RTLIL representation for module `\sg13g2_xor2_1'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: /home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/runs/wokwi/tmp/6712cc9dd4494260a0bf952699142126.bb.v
+Parsing SystemVerilog input from `/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/runs/wokwi/tmp/6712cc9dd4494260a0bf952699142126.bb.v' to AST representation.
+Generating RTLIL representation for module `\sg13g2_Corner'.
+Generating RTLIL representation for module `\sg13g2_Filler1000'.
+Generating RTLIL representation for module `\sg13g2_Filler10000'.
+Generating RTLIL representation for module `\sg13g2_Filler200'.
+Generating RTLIL representation for module `\sg13g2_Filler2000'.
+Generating RTLIL representation for module `\sg13g2_Filler400'.
+Generating RTLIL representation for module `\sg13g2_Filler4000'.
+Generating RTLIL representation for module `\sg13g2_IOPadAnalog'.
+Generating RTLIL representation for module `\sg13g2_IOPadIOVdd'.
+Generating RTLIL representation for module `\sg13g2_IOPadIOVss'.
+Generating RTLIL representation for module `\sg13g2_IOPadIn'.
+Generating RTLIL representation for module `\sg13g2_IOPadInOut16mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadInOut30mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadInOut4mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadOut16mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadOut30mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadOut4mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadTriOut16mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadTriOut30mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadTriOut4mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadVdd'.
+Generating RTLIL representation for module `\sg13g2_IOPadVss'.
+Successfully finished Verilog frontend.
+wtaf
+
+3. Executing Verilog-2005 frontend: /home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v
+Parsing SystemVerilog input from `/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v' to AST representation.
+Storing AST representation for module `$abstract\tt_um_ezumaex_pacman'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: /home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/hvsync_generator.v
+Parsing SystemVerilog input from `/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/hvsync_generator.v' to AST representation.
+Storing AST representation for module `$abstract\hvsync_generator'.
+Successfully finished Verilog frontend.
+
+5. Executing HIERARCHY pass (managing design hierarchy).
+
+6. Executing AST frontend in derive mode using pre-parsed AST for module `\tt_um_ezumaex_pacman'.
+Generating RTLIL representation for module `\tt_um_ezumaex_pacman'.
+
+6.1. Analyzing design hierarchy..
+Top module:  \tt_um_ezumaex_pacman
+
+6.2. Executing AST frontend in derive mode using pre-parsed AST for module `\hvsync_generator'.
+Generating RTLIL representation for module `\hvsync_generator'.
+
+6.3. Analyzing design hierarchy..
+Top module:  \tt_um_ezumaex_pacman
+Used module:     \hvsync_generator
+
+6.4. Analyzing design hierarchy..
+Top module:  \tt_um_ezumaex_pacman
+Used module:     \hvsync_generator
+Removing unused module `$abstract\hvsync_generator'.
+Removing unused module `$abstract\tt_um_ezumaex_pacman'.
+Removed 2 unused modules.
+Renaming module tt_um_ezumaex_pacman to tt_um_ezumaex_pacman.
+
+7. Executing PROC pass (convert processes to netlists).
+
+7.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+7.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$738 in module tt_um_ezumaex_pacman.
+Marked 1 switch rules as full_case in process $proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$723 in module tt_um_ezumaex_pacman.
+Marked 16 switch rules as full_case in process $proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142 in module tt_um_ezumaex_pacman.
+Marked 2 switch rules as full_case in process $proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/hvsync_generator.v:9$753 in module hvsync_generator.
+Removed a total of 0 dead cases.
+
+7.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 1 redundant assignment.
+Promoted 79 assignments to connections.
+
+7.4. Executing PROC_INIT pass (extract init attributes).
+
+7.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+
+7.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~27 debug messages>
+
+7.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$738'.
+     1/1: $1\circle_hit$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$39.$result[0:0]$743
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$723'.
+     1/1: $1\circle_hit$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$38.$result[0:0]$728
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:267$703'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$683'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$663'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$643'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$623'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$603'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$583'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$563'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$543'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$523'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$503'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$483'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$463'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$443'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$423'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$403'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$383'.
+Creating decoders for process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+     1/18: $5$lookahead\dots$141[63:0]$171
+     2/18: $5$bitselwrite$pos$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:208$17[5:0]$170
+     3/18: $4$lookahead\dots$141[63:0]$160
+     4/18: $4$bitselwrite$pos$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:208$17[5:0]$159
+     5/18: $3$lookahead\dots$141[63:0]$154
+     6/18: $3$bitselwrite$pos$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:208$17[5:0]$153
+     7/18: $2$lookahead\dots$141[63:0]$149
+     8/18: $2$bitselwrite$pos$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:208$17[5:0]$148
+     9/18: $1$lookahead\dots$141[63:0]$147
+    10/18: $1$bitselwrite$pos$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:208$17[5:0]$146
+    11/18: $0\power_timer[9:0]
+    12/18: $0\frame_ctr[5:0]
+    13/18: $0\pac_dir[1:0]
+    14/18: $0\gy[9:0]
+    15/18: $0\gx[9:0]
+    16/18: $0\py[9:0]
+    17/18: $0\px[9:0]
+    18/18: $0\state[1:0]
+Creating decoders for process `\hvsync_generator.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/hvsync_generator.v:9$753'.
+     1/2: $0\hpos[9:0]
+     2/2: $0\vpos[9:0]
+
+7.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\tt_um_ezumaex_pacman.\circle_hit$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$20.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$738'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\circle_hit$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$39.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$738'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\circle_hit$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$39.ax' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$738'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\circle_hit$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$39.ay' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$738'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\circle_hit$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$19.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$723'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\circle_hit$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$38.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$723'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\circle_hit$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$38.ax' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$723'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\circle_hit$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$38.ay' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$723'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:267$18.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:267$703'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:267$37.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:267$703'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:267$37.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:267$703'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:267$37.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:267$703'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$16.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$683'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$36.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$683'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$36.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$683'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$36.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$683'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$15.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$663'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$35.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$663'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$35.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$663'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$35.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$663'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$14.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$643'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$34.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$643'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$34.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$643'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$34.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$643'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$13.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$623'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$33.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$623'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$33.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$623'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$33.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$623'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$12.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$603'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$32.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$603'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$32.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$603'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$32.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$603'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$11.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$583'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$31.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$583'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$31.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$583'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$31.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$583'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$10.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$563'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$30.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$563'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$30.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$563'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$30.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$563'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$9.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$543'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$29.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$543'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$29.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$543'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$29.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$543'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$8.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$523'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$28.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$523'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$28.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$523'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$28.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$523'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$7.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$503'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$27.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$503'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$27.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$503'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$27.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$503'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$6.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$483'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$26.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$483'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$26.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$483'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$26.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$483'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$5.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$463'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$25.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$463'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$25.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$463'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$25.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$463'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$4.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$443'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$24.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$443'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$24.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$443'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$24.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$443'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$3.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$423'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$23.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$423'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$23.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$423'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$23.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$423'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$2.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$403'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$22.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$403'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$22.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$403'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$22.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$403'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$1.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$383'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$21.$result' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$383'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$21.r' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$383'.
+No latch inferred for signal `\tt_um_ezumaex_pacman.\is_wall$func$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$21.c' from process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$383'.
+
+7.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\tt_um_ezumaex_pacman.\state' using process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+  created $adff cell `$procdff$1038' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_ezumaex_pacman.\px' using process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+  created $adff cell `$procdff$1043' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_ezumaex_pacman.\py' using process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+  created $adff cell `$procdff$1048' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_ezumaex_pacman.\gx' using process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+  created $adff cell `$procdff$1053' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_ezumaex_pacman.\gy' using process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+  created $adff cell `$procdff$1058' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_ezumaex_pacman.\pac_dir' using process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+  created $adff cell `$procdff$1063' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_ezumaex_pacman.\frame_ctr' using process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+  created $adff cell `$procdff$1068' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_ezumaex_pacman.\dots' using process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+  created $adff cell `$procdff$1073' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_ezumaex_pacman.\power_timer' using process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+  created $adff cell `$procdff$1078' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_ezumaex_pacman.$bitselwrite$pos$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:208$17' using process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+  created $adff cell `$procdff$1083' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_ezumaex_pacman.$lookahead\dots$141' using process `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+  created $adff cell `$procdff$1088' with positive edge clock and positive level reset.
+Creating register for signal `\hvsync_generator.\hpos' using process `\hvsync_generator.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/hvsync_generator.v:9$753'.
+  created $dff cell `$procdff$1089' with positive edge clock.
+Creating register for signal `\hvsync_generator.\vpos' using process `\hvsync_generator.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/hvsync_generator.v:9$753'.
+  created $dff cell `$procdff$1090' with positive edge clock.
+
+7.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+7.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$738'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:343$738'.
+Found and cleaned up 1 empty switch in `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$723'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:317$723'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:267$703'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$683'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:144$663'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$643'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:143$623'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$603'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:142$583'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$563'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:141$543'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$523'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:116$503'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$483'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:115$463'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$443'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:114$423'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$403'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:113$383'.
+Found and cleaned up 23 empty switches in `\tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+Removing empty process `tt_um_ezumaex_pacman.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:170$142'.
+Found and cleaned up 2 empty switches in `\hvsync_generator.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/hvsync_generator.v:9$753'.
+Removing empty process `hvsync_generator.$proc$/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/hvsync_generator.v:9$753'.
+Cleaned up 27 empty switches.
+
+7.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_ezumaex_pacman.
+<suppressed ~42 debug messages>
+Optimizing module hvsync_generator.
+
+8. Executing FLATTEN pass (flatten design).
+Deleting now unused module hvsync_generator.
+<suppressed ~1 debug messages>
+
+9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_ezumaex_pacman..
+Removed 25 unused cells and 438 unused wires.
+<suppressed ~98 debug messages>

@@ -1,0 +1,74 @@
+Reading timing models for corner nom_fast_1p32V_m40C…
+Reading timing library for the 'nom_fast_1p32V_m40C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_fast_1p32V_m40C.lib'…
+Reading timing library for the 'nom_fast_1p32V_m40C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_fast_1p32V_3p6V_m40C.lib'…
+Reading timing models for corner nom_slow_1p08V_125C…
+Reading timing library for the 'nom_slow_1p08V_125C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_slow_1p08V_125C.lib'…
+Reading timing library for the 'nom_slow_1p08V_125C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_slow_1p08V_3p0V_125C.lib'…
+Reading timing models for corner nom_typ_1p20V_25C…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib'…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_typ_1p2V_3p3V_25C.lib'…
+Reading OpenROAD database at '/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/runs/wokwi/35-openroad-cts/tt_um_ezumaex_pacman.odb'…
+Reading design constraints file at '/nix/store/ffl2vg3m80k0p74pyffnmai83fnv38mf-python3-3.13.9-env/lib/python3.13/site-packages/librelane/scripts/base.sdc'…
+[INFO] Using clock clk…
+[INFO] Setting output delay to: 7.944
+[INFO] Setting input delay to: 7.944
+[INFO] Setting load to: 0.006
+[INFO] Setting clock uncertainty to: 0.25
+[INFO] Setting clock transition to: 0.15
+[INFO] Setting timing derate to: 5%
++ repair_timing -verbose -setup -setup_margin 0.05000000000000000277555756156289135105907917022705078125 -max_buffer_percent 50
+[INFO RSZ-0100] Repair move sequence: UnbufferMove SizeUpMove SwapPinsMove BufferMove CloneMove SplitLoadMove 
+[INFO RSZ-0098] No setup violations found
++ repair_timing -verbose -hold -setup_margin 0.05000000000000000277555756156289135105907917022705078125 -hold_margin 0.1 -max_buffer_percent 50
+[INFO RSZ-0046] Found 122 endpoints with hold violations.
+Iteration | Resized | Buffers | Cloned Gates |   Area   |   WNS   |   TNS   | Endpoint
+--------------------------------------------------------------------------------------
+        0 |       0 |       0 |            0 |    +0.0% |  -0.063 |  -3.447 | _3518_/D
+       10 |       0 |      10 |            0 |    +0.6% |  -0.054 |  -2.926 | _3558_/D
+       20 |       0 |      22 |            0 |    +1.4% |  -0.048 |  -2.417 | _3503_/D
+       30 |       0 |      34 |            0 |    +2.1% |  -0.044 |  -1.948 | _3540_/D
+       40 |       0 |      48 |            0 |    +3.0% |  -0.040 |  -1.526 | _3524_/D
+       50 |       0 |      61 |            0 |    +3.8% |  -0.037 |  -1.139 | _3537_/D
+       60 |       0 |      71 |            0 |    +4.4% |  -0.034 |  -0.779 | _3493_/D
+       70 |       0 |      82 |            0 |    +5.1% |  -0.029 |  -0.453 | _3450_/D
+       80 |       0 |      97 |            0 |    +6.0% |  -0.021 |  -0.174 | _3475_/D
+       90 |       0 |     108 |            0 |    +6.7% |  -0.010 |  -0.028 | _3551_/D
+      100 |       0 |     117 |            0 |    +7.2% |   0.024 |   0.000 | _3473_/D
+      110 |       0 |     127 |            0 |    +7.8% |   0.051 |   0.000 | _3458_/D
+      120 |       0 |     135 |            0 |    +8.3% |   0.089 |   0.000 | _3434_/D
+    final |       0 |     140 |            0 |    +8.6% |   0.105 |   0.000 | _3553_/D
+--------------------------------------------------------------------------------------
+[INFO RSZ-0032] Inserted 140 hold buffers.
++ detailed_placement -max_displacement  500 100 
+[INFO DPL-0034] Detailed placement failed on the following 29 instances:
+[INFO DPL-0035]  _2253_
+[INFO DPL-0035]  input1
+[INFO DPL-0035]  fanout148
+[INFO DPL-0035]  fanout148
+[INFO DPL-0035]  _2465_
+[INFO DPL-0035]  _2465_
+[INFO DPL-0035]  _3209_
+[INFO DPL-0035]  _3067_
+[INFO DPL-0035]  fanout86
+[INFO DPL-0035]  fanout86
+[INFO DPL-0035]  tt_um_ezumaex_pacman_203
+[INFO DPL-0035]  tt_um_ezumaex_pacman_203
+[INFO DPL-0035]  fanout139
+[INFO DPL-0035]  _3064_
+[INFO DPL-0035]  _3064_
+[INFO DPL-0035]  _3070_
+[INFO DPL-0035]  _3070_
+[INFO DPL-0035]  tt_um_ezumaex_pacman
+[INFO DPL-0035]  tt_um_ezumaex_pacman
+[INFO DPL-0035]  _3305_
+[INFO DPL-0035]  _3305_
+[INFO DPL-0035]  _3305_
+[INFO DPL-0035]  tt_um_ezumaex_pacman_197
+[INFO DPL-0035]  fanout11
+[INFO DPL-0035]  fanout11
+[INFO DPL-0035]  _3314_
+[INFO DPL-0035]  _3409_
+[INFO DPL-0035]  _3213_
+[INFO DPL-0035]  _3213_
+[ERROR DPL-0036] Detailed placement failed.
+Error: rsz_timing_postcts.tcl, 61 DPL-0036

@@ -1,0 +1,247 @@
+Reading timing models for corner nom_fast_1p32V_m40C…
+Reading timing library for the 'nom_fast_1p32V_m40C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_fast_1p32V_m40C.lib'…
+Reading timing library for the 'nom_fast_1p32V_m40C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_fast_1p32V_3p6V_m40C.lib'…
+Reading timing models for corner nom_slow_1p08V_125C…
+Reading timing library for the 'nom_slow_1p08V_125C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_slow_1p08V_125C.lib'…
+Reading timing library for the 'nom_slow_1p08V_125C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_slow_1p08V_3p0V_125C.lib'…
+Reading timing models for corner nom_typ_1p20V_25C…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib'…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/home/runner/.ciel/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_typ_1p2V_3p3V_25C.lib'…
+Reading OpenROAD database at '/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/runs/wokwi/28-openroad-globalplacement/tt_um_ezumaex_pacman.odb'…
+Reading design constraints file at '/nix/store/ffl2vg3m80k0p74pyffnmai83fnv38mf-python3-3.13.9-env/lib/python3.13/site-packages/librelane/scripts/base.sdc'…
+[INFO] Using clock clk…
+[INFO] Setting output delay to: 7.944
+[INFO] Setting input delay to: 7.944
+[INFO] Setting load to: 0.006
+[INFO] Setting clock uncertainty to: 0.25
+[INFO] Setting clock transition to: 0.15
+[INFO] Setting timing derate to: 5%
+[INFO RSZ-0027] Inserted 6 sg13g2_buf_1 input buffers.
++ repair_design -verbose -max_wire_length 0 -slew_margin 20 -cap_margin 20
+Iteration |   Area    | Resized | Buffers | Nets repaired | Remaining
+---------------------------------------------------------------------
+        0 |     +0.0% |       0 |       0 |             0 |      1876
+       10 |     +0.0% |       0 |       0 |             0 |      1866
+       20 |     +0.0% |       0 |       0 |             0 |      1856
+       30 |     +0.0% |       0 |       0 |             0 |      1846
+       40 |     +0.0% |       0 |       0 |             0 |      1836
+       50 |     +0.0% |       0 |       0 |             0 |      1826
+       60 |     +0.0% |       0 |       0 |             0 |      1816
+       70 |     +0.0% |       0 |       0 |             0 |      1806
+       80 |     +0.0% |       0 |       0 |             0 |      1796
+       90 |     +0.0% |       0 |       0 |             0 |      1786
+      100 |     +0.0% |       0 |       0 |             0 |      1776
+      110 |     +0.0% |       0 |       0 |             0 |      1766
+      120 |     +0.0% |       0 |       0 |             0 |      1756
+      130 |     +0.0% |       0 |       0 |             0 |      1746
+      140 |     +0.0% |       0 |       0 |             0 |      1736
+      150 |     +0.0% |       0 |       0 |             0 |      1726
+      160 |     +0.0% |       0 |       0 |             0 |      1716
+      170 |     +0.0% |       0 |       0 |             0 |      1706
+      180 |     +0.0% |       0 |       0 |             0 |      1696
+      190 |     +0.0% |       0 |       0 |             0 |      1686
+      200 |     +0.0% |       0 |       0 |             0 |      1676
+      210 |     +0.0% |       0 |       0 |             0 |      1666
+      220 |     +0.0% |       0 |       0 |             0 |      1656
+      230 |     +0.0% |       0 |       0 |             0 |      1646
+      240 |     +0.0% |       0 |       0 |             0 |      1636
+      250 |     +0.0% |       0 |       0 |             0 |      1626
+      260 |     +0.0% |       0 |       0 |             0 |      1616
+      270 |     +0.0% |       0 |       0 |             0 |      1606
+      280 |     +0.3% |       0 |       8 |             2 |      1596
+      290 |     +0.3% |       0 |       8 |             2 |      1586
+      300 |     +0.3% |       0 |       8 |             2 |      1576
+      310 |     +0.3% |       0 |       8 |             2 |      1566
+      320 |     +0.3% |       0 |       8 |             2 |      1556
+      330 |     +0.3% |       0 |       8 |             2 |      1546
+      340 |     +0.3% |       0 |       8 |             2 |      1536
+      350 |     +0.3% |       0 |       8 |             2 |      1526
+      360 |     +0.3% |       0 |       8 |             2 |      1516
+      370 |     +0.3% |       0 |       8 |             2 |      1506
+      380 |     +0.3% |       0 |       8 |             2 |      1496
+      390 |     +0.3% |       0 |       8 |             2 |      1486
+      400 |     +0.3% |       0 |      11 |             4 |      1476
+      410 |     +0.5% |       0 |      15 |             7 |      1466
+      420 |     +0.5% |       0 |      15 |             7 |      1456
+      430 |     +0.5% |       0 |      15 |             7 |      1446
+      440 |     +0.5% |       0 |      15 |             7 |      1436
+      450 |     +0.5% |       0 |      15 |             7 |      1426
+      460 |     +0.5% |       0 |      15 |             7 |      1416
+      470 |     +0.5% |       0 |      15 |             7 |      1406
+      480 |     +0.5% |       0 |      15 |             7 |      1396
+      490 |     +0.5% |       0 |      15 |             7 |      1386
+      500 |     +0.5% |       0 |      15 |             7 |      1376
+      510 |     +0.5% |       0 |      15 |             7 |      1366
+      520 |     +0.5% |       0 |      15 |             7 |      1356
+      530 |     +0.5% |       0 |      15 |             7 |      1346
+      540 |     +0.5% |       0 |      15 |             7 |      1336
+      550 |     +0.5% |       0 |      15 |             7 |      1326
+      560 |     +0.5% |       0 |      15 |             7 |      1316
+      570 |     +0.5% |       0 |      15 |             7 |      1306
+      580 |     +0.5% |       0 |      15 |             7 |      1296
+      590 |     +0.5% |       0 |      16 |             8 |      1286
+      600 |     +0.5% |       0 |      17 |             9 |      1276
+      610 |     +0.5% |       0 |      17 |             9 |      1266
+      620 |     +0.5% |       0 |      17 |             9 |      1256
+      630 |     +0.5% |       0 |      17 |             9 |      1246
+      640 |     +0.5% |       0 |      17 |             9 |      1236
+      650 |     +0.5% |       0 |      17 |             9 |      1226
+      660 |     +0.5% |       0 |      17 |             9 |      1216
+      670 |     +0.5% |       0 |      17 |             9 |      1206
+      680 |     +0.5% |       0 |      17 |             9 |      1196
+      690 |     +0.5% |       0 |      17 |             9 |      1186
+      700 |     +0.5% |       0 |      17 |             9 |      1176
+      710 |     +0.7% |       0 |      21 |            11 |      1166
+      720 |     +0.7% |       0 |      21 |            11 |      1156
+      730 |     +0.7% |       0 |      21 |            11 |      1146
+      740 |     +0.7% |       0 |      21 |            11 |      1136
+      750 |     +0.7% |       0 |      21 |            11 |      1126
+      760 |     +0.7% |       0 |      22 |            12 |      1116
+      770 |     +0.7% |       0 |      23 |            13 |      1106
+      780 |     +0.7% |       0 |      23 |            13 |      1096
+      790 |     +0.7% |       0 |      23 |            13 |      1086
+      800 |     +0.7% |       0 |      23 |            13 |      1076
+      810 |     +0.7% |       0 |      23 |            13 |      1066
+      820 |     +0.7% |       0 |      23 |            13 |      1056
+      830 |     +0.7% |       0 |      23 |            13 |      1046
+      840 |     +0.7% |       0 |      23 |            13 |      1036
+      850 |     +0.7% |       0 |      23 |            13 |      1026
+      860 |     +0.8% |       0 |      24 |            14 |      1016
+      870 |     +0.8% |       0 |      26 |            15 |      1006
+      880 |     +0.8% |       0 |      27 |            16 |       996
+      890 |     +0.8% |       0 |      27 |            16 |       986
+      900 |     +0.8% |       0 |      27 |            16 |       976
+      910 |     +0.8% |       0 |      27 |            16 |       966
+      920 |     +0.8% |       0 |      27 |            16 |       956
+      930 |     +0.8% |       0 |      27 |            16 |       946
+      940 |     +0.8% |       0 |      27 |            16 |       936
+      950 |     +0.8% |       0 |      27 |            16 |       926
+      960 |     +0.8% |       0 |      27 |            16 |       916
+      970 |     +0.8% |       0 |      27 |            16 |       906
+      980 |     +0.8% |       0 |      27 |            16 |       896
+      990 |     +0.8% |       0 |      27 |            16 |       886
+     1000 |     +0.8% |       0 |      27 |            16 |       876
+     1010 |     +0.8% |       0 |      27 |            16 |       866
+     1020 |     +0.8% |       0 |      27 |            16 |       856
+     1030 |     +0.8% |       0 |      27 |            16 |       846
+     1040 |     +0.8% |       0 |      27 |            16 |       836
+     1050 |     +0.8% |       0 |      27 |            16 |       826
+     1060 |     +0.8% |       0 |      27 |            16 |       816
+     1070 |     +0.8% |       0 |      27 |            16 |       806
+     1080 |     +0.8% |       0 |      27 |            16 |       796
+     1090 |     +0.8% |       0 |      27 |            16 |       786
+     1100 |     +0.8% |       0 |      27 |            16 |       776
+     1110 |     +0.8% |       0 |      27 |            16 |       766
+     1120 |     +0.8% |       0 |      27 |            16 |       756
+     1130 |     +0.8% |       0 |      27 |            16 |       746
+     1140 |     +0.8% |       0 |      27 |            16 |       736
+     1150 |     +0.8% |       0 |      27 |            16 |       726
+     1160 |     +0.8% |       0 |      27 |            16 |       716
+     1170 |     +0.8% |       0 |      27 |            16 |       706
+     1180 |     +0.8% |       0 |      27 |            16 |       696
+     1190 |     +0.8% |       0 |      27 |            16 |       686
+     1200 |     +0.8% |       0 |      27 |            16 |       676
+     1210 |     +0.8% |       0 |      27 |            16 |       666
+     1220 |     +0.9% |       0 |      29 |            17 |       656
+     1230 |     +0.9% |       0 |      29 |            17 |       646
+     1240 |     +0.9% |       0 |      29 |            17 |       636
+     1250 |     +0.9% |       0 |      29 |            17 |       626
+     1260 |     +0.9% |       0 |      29 |            17 |       616
+     1270 |     +0.9% |       0 |      29 |            17 |       606
+     1280 |     +0.9% |       0 |      29 |            17 |       596
+     1290 |     +0.9% |       0 |      29 |            17 |       586
+     1300 |     +0.9% |       0 |      30 |            18 |       576
+     1310 |     +0.9% |       0 |      30 |            18 |       566
+     1320 |     +0.9% |       0 |      30 |            18 |       556
+     1330 |     +0.9% |       0 |      30 |            18 |       546
+     1340 |     +0.9% |       0 |      30 |            18 |       536
+     1350 |     +0.9% |       0 |      30 |            18 |       526
+     1360 |     +0.9% |       0 |      30 |            18 |       516
+     1370 |     +0.9% |       0 |      30 |            18 |       506
+     1380 |     +0.9% |       0 |      30 |            18 |       496
+     1390 |     +0.9% |       0 |      30 |            18 |       486
+     1400 |     +0.9% |       0 |      30 |            18 |       476
+     1410 |     +1.1% |       0 |      34 |            21 |       466
+     1420 |     +1.1% |       0 |      34 |            21 |       456
+     1430 |     +1.1% |       0 |      36 |            23 |       446
+     1440 |     +1.1% |       0 |      36 |            23 |       436
+     1450 |     +1.1% |       0 |      36 |            23 |       426
+     1460 |     +1.1% |       0 |      36 |            23 |       416
+     1470 |     +1.1% |       0 |      36 |            23 |       406
+     1480 |     +1.1% |       0 |      36 |            23 |       396
+     1490 |     +1.3% |       0 |      42 |            26 |       386
+     1500 |     +1.4% |       0 |      46 |            28 |       376
+     1510 |     +1.4% |       0 |      46 |            28 |       366
+     1520 |     +1.4% |       0 |      46 |            28 |       356
+     1530 |     +1.4% |       0 |      46 |            28 |       346
+     1540 |     +1.4% |       0 |      46 |            28 |       336
+     1550 |     +1.4% |       0 |      46 |            28 |       326
+     1560 |     +1.4% |       0 |      46 |            28 |       316
+     1570 |     +1.5% |       0 |      47 |            29 |       306
+     1580 |     +1.5% |       0 |      47 |            29 |       296
+     1590 |     +1.6% |       0 |      51 |            31 |       286
+     1600 |     +1.6% |       0 |      51 |            31 |       276
+     1610 |     +1.7% |       0 |      55 |            33 |       266
+     1620 |     +1.8% |       0 |      56 |            34 |       256
+     1630 |     +1.8% |       0 |      56 |            34 |       246
+     1640 |     +1.8% |       0 |      57 |            35 |       236
+     1650 |     +1.8% |       0 |      57 |            35 |       226
+     1660 |     +1.8% |       0 |      57 |            35 |       216
+     1670 |     +1.9% |       0 |      60 |            36 |       206
+     1680 |     +1.9% |       0 |      60 |            36 |       196
+     1690 |     +1.9% |       0 |      61 |            37 |       186
+     1700 |     +1.9% |       0 |      61 |            37 |       176
+     1710 |     +1.9% |       0 |      61 |            37 |       166
+     1720 |     +1.9% |       0 |      61 |            37 |       156
+     1730 |     +1.9% |       0 |      61 |            37 |       146
+     1740 |     +1.9% |       0 |      61 |            37 |       136
+     1750 |     +1.9% |       0 |      61 |            37 |       126
+     1760 |     +1.9% |       0 |      61 |            37 |       116
+     1770 |     +2.3% |       0 |      73 |            43 |       106
+     1780 |     +3.0% |       0 |      95 |            53 |        96
+     1790 |     +3.3% |       0 |     105 |            58 |        86
+     1800 |     +4.1% |       0 |     130 |            67 |        76
+     1810 |     +4.5% |       0 |     144 |            74 |        66
+     1820 |     +5.2% |       0 |     166 |            80 |        56
+     1830 |     +5.8% |       0 |     186 |            81 |        46
+     1840 |     +5.8% |       0 |     186 |            81 |        36
+     1850 |     +5.8% |       0 |     186 |            81 |        26
+     1860 |     +5.8% |       0 |     186 |            81 |        16
+     1870 |     +5.8% |       0 |     186 |            81 |         6
+    final |     +5.8% |       0 |     186 |            81 |         0
+---------------------------------------------------------------------
+[INFO RSZ-0034] Found 1 slew violations.
+[INFO RSZ-0035] Found 81 fanout violations.
+[INFO RSZ-0038] Inserted 186 buffers in 81 nets.
+[INFO RSZ-0042] Inserted 16 tie sg13g2_tielo instances.
+[INFO RSZ-0042] Inserted 20 tie sg13g2_tiehi instances.
++ detailed_placement -max_displacement  500 100 
+Placement Analysis
+---------------------------------
+total displacement       7352.0 u
+average displacement        3.6 u
+max displacement           44.9 u
+original HPWL           41198.6 u
+legalized HPWL          47584.7 u
+delta HPWL                   16 %
+
+[INFO DPL-0020] Mirrored 861 instances
+[INFO DPL-0021] HPWL before           47584.7 u
+[INFO DPL-0022] HPWL after            46641.1 u
+[INFO DPL-0023] HPWL delta               -2.0 %
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 456 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Buffer                                    4      29.03
+  Timing Repair Buffer                    192    1393.46
+  Inverter                                 66     359.25
+  Sequential cell                         135    6613.49
+  Multi-Input combinational cell         1646   16137.27
+  Total                                  2043   24532.50
+Writing OpenROAD database to '/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/runs/wokwi/32-openroad-repairdesignpostgpl/tt_um_ezumaex_pacman.odb'…
+Writing netlist to '/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/runs/wokwi/32-openroad-repairdesignpostgpl/tt_um_ezumaex_pacman.nl.v'…
+Writing powered netlist to '/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/runs/wokwi/32-openroad-repairdesignpostgpl/tt_um_ezumaex_pacman.pnl.v'…
+Writing layout to '/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/runs/wokwi/32-openroad-repairdesignpostgpl/tt_um_ezumaex_pacman.def'…
+Writing timing constraints to '/home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/runs/wokwi/32-openroad-repairdesignpostgpl/tt_um_ezumaex_pacman.sdc'…

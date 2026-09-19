@@ -1,0 +1,29 @@
+%Warning-UNUSEDPARAM: /home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:51:16: Parameter is not used: 'ARENA_L'
+                                                                                                   : ... note: In instance 'tt_um_ezumaex_pacman'
+   51 |     localparam ARENA_L = 10'd192;
+      |                ^~~~~~~
+                      ... For warning description see https://verilator.org/warn/UNUSEDPARAM?v=5.044
+                      ... Use "/* verilator lint_off UNUSEDPARAM */" and lint_on around source to disable this message.
+%Warning-UNUSEDPARAM: /home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:52:16: Parameter is not used: 'ARENA_R'
+                                                                                                   : ... note: In instance 'tt_um_ezumaex_pacman'
+   52 |     localparam ARENA_R = 10'd448;
+      |                ^~~~~~~
+%Warning-UNUSEDPARAM: /home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:53:16: Parameter is not used: 'ARENA_T'
+                                                                                                   : ... note: In instance 'tt_um_ezumaex_pacman'
+   53 |     localparam ARENA_T = 10'd112;
+      |                ^~~~~~~
+%Warning-UNUSEDPARAM: /home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:54:16: Parameter is not used: 'ARENA_B'
+                                                                                                   : ... note: In instance 'tt_um_ezumaex_pacman'
+   54 |     localparam ARENA_B = 10'd368;
+      |                ^~~~~~~
+%Warning-UNUSEDPARAM: /home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:55:16: Parameter is not used: 'RADIUS'
+                                                                                                   : ... note: In instance 'tt_um_ezumaex_pacman'
+   55 |     localparam RADIUS  = 10'd11;  
+      |                ^~~~~~
+%Warning-UNUSEDPARAM: /home/runner/work/CDM_BOOTCAMP_PACMAN/CDM_BOOTCAMP_PACMAN/src/project.v:56:16: Parameter is not used: 'G_RADIUS'
+                                                                                                   : ... note: In instance 'tt_um_ezumaex_pacman'
+   56 |     localparam G_RADIUS = 10'd10;  
+      |                ^~~~~~~~
+- V e r i l a t i o n   R e p o r t: Verilator 5.044 2026-01-01 rev v5.040
+- Verilator: Built from 0.235 MB sources in 109 modules, into 0.223 MB in 3 C++ files needing 0.000 MB
+- Verilator: Walltime 0.044 s (elab=0.004, cvt=0.028, bld=0.000); cpu 0.044 s on 1 threads; alloced 22.191 MB
