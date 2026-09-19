@@ -16,7 +16,7 @@ Collect all pellets to win. The four corner power pellets make the ghost flee at
 - RGB222 Tiny VGA PMOD pinout: uo[0]=R1, [1]=G1, [2]=B1, [3]=VSYNC, [4]=R0, [5]=G0, [6]=B0, [7]=HSYNC.
 - ui[4:0] are synchronized with two flip-flops. Inputs 5-7 are unused; all bidirectional pins are inputs, with output data tied low.
 - rst_n is the hardware reset. Assert it for at least two pixel clocks. ena follows the standard Tiny Tapeout selected-design convention.
-- Allocation: 4x2 tiles. Timing target: 39.72 ns. Do not change to 1x1 without rerunning physical implementation.
+- Allocation: 1x1 tile. Timing target: 39.72 ns.
 
 ## Implementation
 

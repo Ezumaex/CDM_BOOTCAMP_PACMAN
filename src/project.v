@@ -95,55 +95,74 @@ module tt_um_ezumaex_pacman (
     wire [2:0] p_row = p_norm_y[7:5];
     wire [5:0] p_idx = {p_row, p_col};
 
+    // Function to check if a cell is a wall in the 8x8 maze (100% equivalent to MAZE[{r,c}])
+    function is_wall;
+        input [2:0] r, c;
+        begin
+            case (r)
+                3'd1, 3'd6: is_wall = (c == 3'd1 || c == 3'd2 || c == 3'd5 || c == 3'd6);
+                3'd2, 3'd5: is_wall = (c == 3'd1 || c == 3'd6);
+                3'd3, 3'd4: is_wall = (c == 3'd3 || c == 3'd4);
+                default:    is_wall = 1'b0;
+            endcase
+        end
+    endfunction
+
     // --- WALL COLLISION DETECTION ---
-    wire [9:0] px_L_calc = px - RADIUS - ARENA_L;
-    wire [2:0] px_L = ((px - RADIUS) >= ARENA_L) ? px_L_calc[7:5] : 3'd0;
-    wire [9:0] px_R_calc = px + RADIUS - ARENA_L;
-    wire [2:0] px_R = ((px + RADIUS) < ARENA_R) ? px_R_calc[7:5] : 3'd7;
-    wire [9:0] py_T_calc = py - RADIUS - ARENA_T;
-    wire [2:0] py_T = ((py - RADIUS) >= ARENA_T) ? py_T_calc[7:5] : 3'd0;
-    wire [9:0] py_B_calc = py + RADIUS - ARENA_T;
-    wire [2:0] py_B = ((py + RADIUS) < ARENA_B) ? py_B_calc[7:5] : 3'd7;
+    wire [9:0] px_L_calc = px - 10'd203;
+    wire [2:0] px_L = (px >= 10'd203) ? px_L_calc[7:5] : 3'd0;
+    wire [9:0] px_R_calc = px - 10'd181;
+    wire [2:0] px_R = (px < 10'd437) ? px_R_calc[7:5] : 3'd7;
+    wire [9:0] py_T_calc = py - 10'd123;
+    wire [2:0] py_T = (py >= 10'd123) ? py_T_calc[7:5] : 3'd0;
+    wire [9:0] py_B_calc = py - 10'd101;
+    wire [2:0] py_B = (py < 10'd357) ? py_B_calc[7:5] : 3'd7;
 
-    wire [9:0] py_next_T_calc = py - 10'd2 - RADIUS - ARENA_T;
-    wire [2:0] py_next_T = ((py - 10'd2 - RADIUS) >= ARENA_T) ? py_next_T_calc[7:5] : 3'd0;
-    wire [9:0] py_next_B_calc = py + 10'd2 + RADIUS - ARENA_T;
-    wire [2:0] py_next_B = ((py + 10'd2 + RADIUS) < ARENA_B) ? py_next_B_calc[7:5] : 3'd7;
-    wire [9:0] px_next_L_calc = px - 10'd2 - RADIUS - ARENA_L;
-    wire [2:0] px_next_L = ((px - 10'd2 - RADIUS) >= ARENA_L) ? px_next_L_calc[7:5] : 3'd0;
-    wire [9:0] px_next_R_calc = px + 10'd2 + RADIUS - ARENA_L;
-    wire [2:0] px_next_R = ((px + 10'd2 + RADIUS) < ARENA_R) ? px_next_R_calc[7:5] : 3'd7;
+    wire [9:0] py_next_T_calc = py - 10'd125;
+    wire [2:0] py_next_T = (py >= 10'd125) ? py_next_T_calc[7:5] : 3'd0;
+    wire [9:0] py_next_B_calc = py - 10'd99;
+    wire [2:0] py_next_B = (py < 10'd355) ? py_next_B_calc[7:5] : 3'd7;
+    wire [9:0] px_next_L_calc = px - 10'd205;
+    wire [2:0] px_next_L = (px >= 10'd205) ? px_next_L_calc[7:5] : 3'd0;
+    wire [9:0] px_next_R_calc = px - 10'd179;
+    wire [2:0] px_next_R = (px < 10'd435) ? px_next_R_calc[7:5] : 3'd7;
 
-    wire can_move_U = !(MAZE[{py_next_T, px_L}] | MAZE[{py_next_T, px_R}]);
-    wire can_move_D = !(MAZE[{py_next_B, px_L}] | MAZE[{py_next_B, px_R}]);
-    wire can_move_L = !(MAZE[{py_T, px_next_L}] | MAZE[{py_B, px_next_L}]);
-    wire can_move_R = !(MAZE[{py_T, px_next_R}] | MAZE[{py_B, px_next_R}]);
+    wire can_move_U = !(is_wall(py_next_T, px_L) | is_wall(py_next_T, px_R));
+    wire can_move_D = !(is_wall(py_next_B, px_L) | is_wall(py_next_B, px_R));
+    wire can_move_L = !(is_wall(py_T, px_next_L) | is_wall(py_B, px_next_L));
+    wire can_move_R = !(is_wall(py_T, px_next_R) | is_wall(py_B, px_next_R));
 
     // Ghost collision helpers
-    wire [9:0] gx_L_calc = gx - G_RADIUS - ARENA_L;
-    wire [2:0] gx_L = ((gx - G_RADIUS) >= ARENA_L) ? gx_L_calc[7:5] : 3'd0;
-    wire [9:0] gx_R_calc = gx + G_RADIUS - ARENA_L;
-    wire [2:0] gx_R = ((gx + G_RADIUS) < ARENA_R) ? gx_R_calc[7:5] : 3'd7;
-    wire [9:0] gy_T_calc = gy - G_RADIUS - ARENA_T;
-    wire [2:0] gy_T = ((gy - G_RADIUS) >= ARENA_T) ? gy_T_calc[7:5] : 3'd0;
-    wire [9:0] gy_B_calc = gy + G_RADIUS - ARENA_T;
-    wire [2:0] gy_B = ((gy + G_RADIUS) < ARENA_B) ? gy_B_calc[7:5] : 3'd7;
+    wire [9:0] gx_L_calc = gx - 10'd202;
+    wire [2:0] gx_L = (gx >= 10'd202) ? gx_L_calc[7:5] : 3'd0;
+    wire [9:0] gx_R_calc = gx - 10'd182;
+    wire [2:0] gx_R = (gx < 10'd438) ? gx_R_calc[7:5] : 3'd7;
+    wire [9:0] gy_T_calc = gy - 10'd122;
+    wire [2:0] gy_T = (gy >= 10'd122) ? gy_T_calc[7:5] : 3'd0;
+    wire [9:0] gy_B_calc = gy - 10'd102;
+    wire [2:0] gy_B = (gy < 10'd358) ? gy_B_calc[7:5] : 3'd7;
 
-    wire [9:0] gy_next_T_calc = gy - 10'd1 - G_RADIUS - ARENA_T;
-    wire [2:0] gy_next_T = ((gy - 10'd1 - G_RADIUS) >= ARENA_T) ? gy_next_T_calc[7:5] : 3'd0;
-    wire [9:0] gy_next_B_calc = gy + 10'd1 + G_RADIUS - ARENA_T;
-    wire [2:0] gy_next_B = ((gy + 10'd1 + G_RADIUS) < ARENA_B) ? gy_next_B_calc[7:5] : 3'd7;
-    wire [9:0] gx_next_L_calc = gx - 10'd1 - G_RADIUS - ARENA_L;
-    wire [2:0] gx_next_L = ((gx - 10'd1 - G_RADIUS) >= ARENA_L) ? gx_next_L_calc[7:5] : 3'd0;
-    wire [9:0] gx_next_R_calc = gx + 10'd1 + G_RADIUS - ARENA_L;
-    wire [2:0] gx_next_R = ((gx + 10'd1 + G_RADIUS) < ARENA_R) ? gx_next_R_calc[7:5] : 3'd7;
+    wire [9:0] gy_next_T_calc = gy - 10'd123;
+    wire [2:0] gy_next_T = (gy >= 10'd123) ? gy_next_T_calc[7:5] : 3'd0;
+    wire [9:0] gy_next_B_calc = gy - 10'd101;
+    wire [2:0] gy_next_B = (gy < 10'd357) ? gy_next_B_calc[7:5] : 3'd7;
+    wire [9:0] gx_next_L_calc = gx - 10'd203;
+    wire [2:0] gx_next_L = (gx >= 10'd203) ? gx_next_L_calc[7:5] : 3'd0;
+    wire [9:0] gx_next_R_calc = gx - 10'd181;
+    wire [2:0] gx_next_R = (gx < 10'd437) ? gx_next_R_calc[7:5] : 3'd7;
 
-    wire g_can_move_U = !(MAZE[{gy_next_T, gx_L}] | MAZE[{gy_next_T, gx_R}]);
-    wire g_can_move_D = !(MAZE[{gy_next_B, gx_L}] | MAZE[{gy_next_B, gx_R}]);
-    wire g_can_move_L = !(MAZE[{gy_T, gx_next_L}] | MAZE[{gy_B, gx_next_L}]);
-    wire g_can_move_R = !(MAZE[{gy_T, gx_next_R}] | MAZE[{gy_B, gx_next_R}]);
+    wire g_can_move_U = !(is_wall(gy_next_T, gx_L) | is_wall(gy_next_T, gx_R));
+    wire g_can_move_D = !(is_wall(gy_next_B, gx_L) | is_wall(gy_next_B, gx_R));
+    wire g_can_move_L = !(is_wall(gy_T, gx_next_L) | is_wall(gy_B, gx_next_L));
+    wire g_can_move_R = !(is_wall(gy_T, gx_next_R) | is_wall(gy_B, gx_next_R));
 
     wire ghost_scared = (power_timer > 0);
+
+    // Fast entity collision check
+    wire signed [10:0] diff_px_gx = $signed({1'b0, px}) - $signed({1'b0, gx});
+    wire signed [10:0] diff_py_gy = $signed({1'b0, py}) - $signed({1'b0, gy});
+    wire entity_collision = (diff_px_gx > -11'sd18 && diff_px_gx < 11'sd18) &&
+                            (diff_py_gy > -11'sd18 && diff_py_gy < 11'sd18);
 
     // Update in vertical blanking so each visible frame is coherent.
     // Game Update Loop
@@ -213,8 +232,7 @@ module tt_um_ezumaex_pacman (
                 end
 
                 // --- Entity Collision ---
-                if ( (px > gx ? px - gx : gx - px) < 18 &&
-                     (py > gy ? py - gy : gy - py) < 18 ) begin
+                if (entity_collision) begin
                     if (ghost_scared) begin
                         gx <= 400; // Send ghost back to starting area
                         gy <= 256;
@@ -248,7 +266,7 @@ module tt_um_ezumaex_pacman (
     wire [4:0] cy       = vpos_norm[4:0];
 
     // Maze Walls (Rendered as hollow blue squares)
-    wire is_wall_cell = in_arena && MAZE[cell_idx];
+    wire is_wall_cell = in_arena && is_wall(cell_row, cell_col);
     wire draw_maze_wall = is_wall_cell && (cx < 4 || cx > 27 || cy < 4 || cy > 27);
 
     // Dots and Power Pellets
@@ -267,27 +285,31 @@ module tt_um_ezumaex_pacman (
     function circle12;
         input [11:0] ax, ay;
         begin
-            case (ay)
-                12'd0: circle12 = ax <= 12'd12;
-                12'd1,12'd2,12'd3,12'd4: circle12 = ax <= 12'd11;
-                12'd5,12'd6: circle12 = ax <= 12'd10;
-                12'd7: circle12 = ax <= 12'd9;
-                12'd8: circle12 = ax <= 12'd8;
-                12'd9: circle12 = ax <= 12'd7;
-                12'd10: circle12 = ax <= 12'd6;
-                12'd11: circle12 = ax <= 12'd4;
-                12'd12: circle12 = ax == 12'd0;
-                default: circle12 = 1'b0;
-            endcase
+            if (ax[11:4] != 8'd0 || ay[11:4] != 8'd0) begin
+                circle12 = 1'b0;
+            end else begin
+                case (ay[3:0])
+                    4'd0: circle12 = ax[3:0] <= 4'd12;
+                    4'd1,4'd2,4'd3,4'd4: circle12 = ax[3:0] <= 4'd11;
+                    4'd5,4'd6: circle12 = ax[3:0] <= 4'd10;
+                    4'd7: circle12 = ax[3:0] <= 4'd9;
+                    4'd8: circle12 = ax[3:0] <= 4'd8;
+                    4'd9: circle12 = ax[3:0] <= 4'd7;
+                    4'd10: circle12 = ax[3:0] <= 4'd6;
+                    4'd11: circle12 = ax[3:0] <= 4'd4;
+                    4'd12: circle12 = ax[3:0] == 4'd0;
+                    default: circle12 = 1'b0;
+                endcase
+            end
         end
     endfunction
     wire is_circle = circle12(abs_dx, abs_dy);
     wire mouth_open = frame_ctr[4];
+    wire horiz_mouth = (pac_dir == 0 && dx > 0) || (pac_dir == 1 && dx < 0);
+    wire vert_mouth  = (pac_dir == 2 && dy < 0) || (pac_dir == 3 && dy > 0);
     wire is_mouth = mouth_open && (
-        (pac_dir == 0 && dx > 0 && abs_dy < abs_dx) ||
-        (pac_dir == 1 && dx < 0 && abs_dy < abs_dx) ||
-        (pac_dir == 2 && dy < 0 && abs_dx < abs_dy) ||
-        (pac_dir == 3 && dy > 0 && abs_dx < abs_dy)
+        (horiz_mouth && abs_dy < abs_dx) ||
+        (vert_mouth  && abs_dx < abs_dy)
     );
     wire draw_pac = is_circle && !is_mouth;
 
