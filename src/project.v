@@ -98,11 +98,9 @@ module tt_um_ezumaex_pacman (
     // Compact folded 4x4 quadrant maze wall checker (100% equivalent to MAZE[{r,c}])
     function is_wall;
         input [2:0] r, c;
-        reg r1, r0, c1, c0;
         begin
-            r1 = r[2] ^ r[1]; r0 = r[2] ^ r[0];
-            c1 = c[2] ^ c[1]; c0 = c[2] ^ c[0];
-            is_wall = ((r1 ^ r0) & ~c1 & c0) | (~r1 & r0 & c1 & ~c0) | (r1 & r0 & c1 & c0);
+            is_wall = (((r[1] ^ r[0]) & ~(c[2] ^ c[1]) & (c[2] ^ c[0])) |
+                      (((r[2] ^ r[0]) & (c[2] ^ c[1])) & ~((r[2] ^ r[1]) ^ (c[2] ^ c[0]))));
         end
     endfunction
 
@@ -158,9 +156,24 @@ module tt_um_ezumaex_pacman (
     wire ghost_scared = (power_timer > 0);
 
     // Fast single-comparison entity collision check (avoids chained signed comparators)
-    wire [9:0] offset_x = px - gx + 10'd17;
-    wire [9:0] offset_y = py - gy + 10'd17;
-    wire entity_collision = (offset_x <= 10'd34) && (offset_y <= 10'd34);
+    wire [9:0] edx = (px >= gx) ? (px - gx) : (gx - px);
+    wire [9:0] edy = (py >= gy) ? (py - gy) : (gy - py);
+    wire entity_collision = (edx <= 10'd17) && (edy <= 10'd17);
+
+    // Movement helper flags
+    wire p_can_U = can_move_U && (py > 10'd124);
+    wire p_can_D = can_move_D && (py < 10'd356);
+    wire p_can_L = can_move_L && (px > 10'd204);
+    wire p_can_R = can_move_R && (px < 10'd436);
+
+    wire gx_lt_px = (gx < px);
+    wire gx_gt_px = (gx > px);
+    wire gy_lt_py = (gy < py);
+    wire gy_gt_py = (gy > py);
+    wire g_can_L  = g_can_move_L && (gx > 10'd203);
+    wire g_can_R  = g_can_move_R && (gx < 10'd437);
+    wire g_can_U  = g_can_move_U && (gy > 10'd123);
+    wire g_can_D  = g_can_move_D && (gy < 10'd357);
 
     // Update in vertical blanking so each visible frame is coherent.
     // Game Update Loop
@@ -190,13 +203,13 @@ module tt_um_ezumaex_pacman (
 
             if (state == 0) begin
                 // --- Pacman Movement ---
-                if (btn_up && py > ARENA_T + RADIUS + 1 && can_move_U) begin
+                if (btn_up && p_can_U) begin
                     py <= py - 10'd2; pac_dir <= 2;
-                end else if (btn_down && py < ARENA_B - RADIUS - 1 && can_move_D) begin
+                end else if (btn_down && p_can_D) begin
                     py <= py + 10'd2; pac_dir <= 3;
-                end else if (btn_left && px > ARENA_L + RADIUS + 1 && can_move_L) begin
+                end else if (btn_left && p_can_L) begin
                     px <= px - 10'd2; pac_dir <= 1;
-                end else if (btn_right && px < ARENA_R - RADIUS - 1 && can_move_R) begin
+                end else if (btn_right && p_can_R) begin
                     px <= px + 10'd2; pac_dir <= 0;
                 end
 
@@ -212,19 +225,17 @@ module tt_um_ezumaex_pacman (
                 if (ghost_scared) begin
                     // Run Away (Half Speed)
                     if (frame_ctr[0]) begin
-                        if      (gx < px && g_can_move_L && gx > ARENA_L + G_RADIUS + 1) gx <= gx - 10'd1;
-                        else if (gx > px && g_can_move_R && gx < ARENA_R - G_RADIUS - 1) gx <= gx + 10'd1;
-
-                        else if (gy < py && g_can_move_U && gy > ARENA_T + G_RADIUS + 1) gy <= gy - 10'd1;
-                        else if (gy > py && g_can_move_D && gy < ARENA_B - G_RADIUS - 1) gy <= gy + 10'd1;
+                        if      (gx_lt_px && g_can_L) gx <= gx - 10'd1;
+                        else if (gx_gt_px && g_can_R) gx <= gx + 10'd1;
+                        else if (gy_lt_py && g_can_U) gy <= gy - 10'd1;
+                        else if (gy_gt_py && g_can_D) gy <= gy + 10'd1;
                     end
                 end else begin
                     // Chase Mode (Normal Speed)
-                    if      (gx < px && g_can_move_R && gx < ARENA_R - G_RADIUS - 1) gx <= gx + 10'd1;
-                    else if (gx > px && g_can_move_L && gx > ARENA_L + G_RADIUS + 1) gx <= gx - 10'd1;
-
-                    else if (gy < py && g_can_move_D && gy < ARENA_B - G_RADIUS - 1) gy <= gy + 10'd1;
-                    else if (gy > py && g_can_move_U && gy > ARENA_T + G_RADIUS + 1) gy <= gy - 10'd1;
+                    if      (gx_lt_px && g_can_R) gx <= gx + 10'd1;
+                    else if (gx_gt_px && g_can_L) gx <= gx - 10'd1;
+                    else if (gy_lt_py && g_can_D) gy <= gy + 10'd1;
+                    else if (gy_gt_py && g_can_U) gy <= gy - 10'd1;
                 end
 
                 // --- Entity Collision ---
@@ -252,8 +263,8 @@ module tt_um_ezumaex_pacman (
     wire [9:0] vpos_rel = vpos - 10'd112;
     wire in_arena = (hpos_rel[9:8] == 2'b00) && (vpos_rel[9:8] == 2'b00);
 
-    wire [9:0] hpos_border = hpos - 10'd188;
-    wire [9:0] vpos_border = vpos - 10'd108;
+    wire [9:0] hpos_border = hpos_rel + 10'd4;
+    wire [9:0] vpos_border = vpos_rel + 10'd4;
     wire draw_wall = (hpos_border <= 10'd263 && vpos_border <= 10'd263) && !in_arena;
 
     wire [2:0] cell_col = hpos_rel[7:5];
@@ -296,37 +307,35 @@ module tt_um_ezumaex_pacman (
         end
     endfunction
 
-    // Pacman Rendering (bounded 25x25 box eliminates wide comparators and subtractors)
-    wire [9:0] p_diff_x = hpos - px + 10'd12;
-    wire [9:0] p_diff_y = vpos - py + 10'd12;
-    wire in_pac_box = (p_diff_x <= 10'd24) && (p_diff_y <= 10'd24);
-
-    wire [3:0] abs_dx = (p_diff_x >= 10'd12) ? (p_diff_x[4:0] - 5'd12) : (5'd12 - p_diff_x[4:0]);
-    wire [3:0] abs_dy = (p_diff_y >= 10'd12) ? (p_diff_y[4:0] - 5'd12) : (5'd12 - p_diff_y[4:0]);
+    // Pacman Rendering
+    wire [9:0] pdx = (hpos >= px) ? (hpos - px) : (px - hpos);
+    wire [9:0] pdy = (vpos >= py) ? (vpos - py) : (py - vpos);
+    wire in_pac_box = (pdx <= 10'd12) && (pdy <= 10'd12);
+    wire [3:0] abs_dx = pdx[3:0];
+    wire [3:0] abs_dy = pdy[3:0];
 
     wire is_circle = in_pac_box && circle12({8'd0, abs_dx}, {8'd0, abs_dy});
     wire mouth_open = frame_ctr[4];
-    wire horiz_mouth = (pac_dir == 0 && p_diff_x > 10'd12) || (pac_dir == 1 && p_diff_x < 10'd12);
-    wire vert_mouth  = (pac_dir == 2 && p_diff_y < 10'd12) || (pac_dir == 3 && p_diff_y > 10'd12);
+    wire horiz_mouth = (pac_dir == 0 && hpos > px) || (pac_dir == 1 && hpos < px);
+    wire vert_mouth  = (pac_dir == 2 && vpos < py) || (pac_dir == 3 && vpos > py);
     wire is_mouth = mouth_open && (
         (horiz_mouth && abs_dy < abs_dx) ||
         (vert_mouth  && abs_dx < abs_dy)
     );
     wire draw_pac = is_circle && !is_mouth;
 
-    // Ghost Rendering (bounded 25x25 box eliminates wide comparators and subtractors)
-    wire [9:0] g_diff_x = hpos - gx + 10'd12;
-    wire [9:0] g_diff_y = vpos - gy + 10'd12;
-    wire in_ghost_box = (g_diff_x <= 10'd24) && (g_diff_y <= 10'd24);
+    // Ghost Rendering
+    wire [9:0] gdx = (hpos >= gx) ? (hpos - gx) : (gx - hpos);
+    wire [9:0] gdy = (vpos >= gy) ? (vpos - gy) : (gy - vpos);
+    wire in_ghost_box = (gdx <= 10'd12) && (gdy <= 10'd12);
+    wire [3:0] abs_gdx = gdx[3:0];
+    wire [3:0] abs_gdy = gdy[3:0];
 
-    wire [3:0] abs_gdx = (g_diff_x >= 10'd12) ? (g_diff_x[4:0] - 5'd12) : (5'd12 - g_diff_x[4:0]);
-    wire [3:0] abs_gdy = (g_diff_y >= 10'd12) ? (g_diff_y[4:0] - 5'd12) : (5'd12 - g_diff_y[4:0]);
+    wire ghost_head = in_ghost_box && (vpos <= gy) && circle12({8'd0, abs_gdx}, {8'd0, abs_gdy});
+    wire ghost_body = in_ghost_box && (vpos > gy);
+    wire cut_leg = in_ghost_box && (vpos > gy + 10'd8) && (abs_gdx < 4'd8 && !abs_gdx[1]); // Wavy bottom (0, 1, 4, 5)
 
-    wire ghost_head = in_ghost_box && (g_diff_y <= 10'd12) && circle12({8'd0, abs_gdx}, {8'd0, abs_gdy});
-    wire ghost_body = in_ghost_box && (g_diff_y > 10'd12);
-    wire cut_leg = (g_diff_y > 10'd20) && (abs_gdx < 4'd8 && !abs_gdx[1]); // Wavy bottom (0, 1, 4, 5)
-
-    wire draw_ghost_eye = in_ghost_box && (g_diff_y >= 10'd6 && g_diff_y <= 10'd10) && (abs_gdx >= 4'd3 && abs_gdx <= 4'd6);
+    wire draw_ghost_eye = in_ghost_box && (vpos <= gy) && (abs_gdy >= 4'd2 && abs_gdy <= 4'd6) && (abs_gdx >= 4'd3 && abs_gdx <= 4'd6);
     wire draw_ghost_base = (ghost_head || ghost_body) && !cut_leg;
     wire draw_ghost = draw_ghost_base && !draw_ghost_eye;
 
