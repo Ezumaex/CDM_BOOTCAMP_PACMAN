@@ -18,6 +18,15 @@ jobs:
         with:
           pdk: ihp-sg13g2
 
+      - name: Print failure logs
+        if: failure()
+        run: |
+          echo "=== FLOW LOG ==="
+          cat runs/wokwi/flow.log 2>/dev/null || true
+          echo "=== STEP LOGS ==="
+          find runs/wokwi -name "*.log" -exec echo "--- {} ---" \; -exec tail -n 100 {} \; 2>/dev/null || true
+
+
   precheck:
     needs: gds
     runs-on: ubuntu-24.04
