@@ -7,6 +7,8 @@ on:
 jobs:
   gds:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     steps:
       - name: checkout repo
         uses: actions/checkout@v6
@@ -18,13 +20,19 @@ jobs:
         with:
           pdk: ihp-sg13g2
 
-      - name: Print failure logs
+      - name: Push failure logs to branch
         if: failure()
         run: |
-          echo "=== FLOW LOG ==="
-          cat runs/wokwi/flow.log 2>/dev/null || true
-          echo "=== STEP LOGS ==="
-          find runs/wokwi -name "*.log" -exec echo "--- {} ---" \; -exec tail -n 100 {} \; 2>/dev/null || true
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git checkout -B debug-logs
+          mkdir -p debug_logs
+          cat runs/wokwi/flow.log > debug_logs/flow.log 2>/dev/null || true
+          find runs/wokwi -name "*.log" -exec cp {} debug_logs/ \; 2>/dev/null || true
+          git add -f debug_logs/
+          git commit -m "Debug logs from GDS failure" || true
+          git push origin debug-logs --force || true
+
 
 
   precheck:
