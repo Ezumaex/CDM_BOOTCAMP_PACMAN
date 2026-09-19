@@ -95,6 +95,29 @@ module tt_um_ezumaex_pacman (
     wire [4:0] p_cell_y = py_rel[4:0];
     wire [5:0] p_idx    = {p_row, p_col};
 
+    // Direct 8x8 dot row/col indexing and 1-hot bit clearing (eliminates 64-bit barrel shifters)
+    wire [7:0] dec_col = 8'b1 << p_col;
+    wire [7:0] dec_row = 8'b1 << p_row;
+    wire [63:0] dot_eat_mask = {
+        dec_col & {8{dec_row[7]}},
+        dec_col & {8{dec_row[6]}},
+        dec_col & {8{dec_row[5]}},
+        dec_col & {8{dec_row[4]}},
+        dec_col & {8{dec_row[3]}},
+        dec_col & {8{dec_row[2]}},
+        dec_col & {8{dec_row[1]}},
+        dec_col & {8{dec_row[0]}}
+    };
+
+    wire [7:0] p_dot_row = (p_row == 3'd0) ? dots[7:0]   :
+                           (p_row == 3'd1) ? dots[15:8]  :
+                           (p_row == 3'd2) ? dots[23:16] :
+                           (p_row == 3'd3) ? dots[31:24] :
+                           (p_row == 3'd4) ? dots[39:32] :
+                           (p_row == 3'd5) ? dots[47:40] :
+                           (p_row == 3'd6) ? dots[55:48] : dots[63:56];
+    wire p_dot_val = p_dot_row[p_col];
+
     // Compact folded 4x4 quadrant maze wall checker (100% equivalent to MAZE[{r,c}])
     function is_wall;
         input [2:0] r, c;
@@ -214,8 +237,8 @@ module tt_um_ezumaex_pacman (
                 end
 
                 // --- Dot & Powerup Eating ---
-                if (dots[p_idx]) begin
-                    dots[p_idx] <= 1'b0; // Eat it!
+                if (p_dot_val) begin
+                    dots <= dots & ~dot_eat_mask; // Eat it!
                     if ((p_row == 3'd0 || p_row == 3'd7) && (p_col == 3'd0 || p_col == 3'd7)) begin
                         power_timer <= 600; // 10 seconds power mode
                     end
@@ -279,8 +302,17 @@ module tt_um_ezumaex_pacman (
                                            (cy[4:2] == 3'b000 || cy[4:2] == 3'b111));
 
     // Dots and Power Pellets
+    wire [7:0] cell_dot_row = (cell_row == 3'd0) ? dots[7:0]   :
+                              (cell_row == 3'd1) ? dots[15:8]  :
+                              (cell_row == 3'd2) ? dots[23:16] :
+                              (cell_row == 3'd3) ? dots[31:24] :
+                              (cell_row == 3'd4) ? dots[39:32] :
+                              (cell_row == 3'd5) ? dots[47:40] :
+                              (cell_row == 3'd6) ? dots[55:48] : dots[63:56];
+    wire cell_dot_val = cell_dot_row[cell_col];
+
     wire is_power_cell = (cell_row == 3'd0 || cell_row == 3'd7) && (cell_col == 3'd0 || cell_col == 3'd7);
-    wire draw_dot = in_arena && dots[cell_idx] &&
+    wire draw_dot = in_arena && cell_dot_val &&
                     (is_power_cell ? (cx >= 10 && cx <= 21 && cy >= 10 && cy <= 21)   // Big Power Pellet
                                    : (cx >= 14 && cx <= 17 && cy >= 14 && cy <= 17)); // Normal Dot
 
@@ -401,6 +433,8 @@ module tt_um_ezumaex_pacman (
         py_rel[8],
         gx_rel[8],
         gy_rel[8],
+        p_idx,
+        cell_idx,
         1'b0
     };
 
