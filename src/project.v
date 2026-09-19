@@ -1,5 +1,5 @@
 /*
- * Pacman-style Arena Minigame - DX Edition (Fixed Bounds)
+ * Pacman-style Arena Minigame - DX Edition (Fixed Bounds & Synthesis)
  * Features: Maze Walls, Power Pellets, Fleeing Ghost AI
  * 
  * Controls:
@@ -56,7 +56,6 @@ module tt_um_vga_example (
     localparam G_RADIUS = 10'd10; // Ghost Collision radius
 
     // 8x8 Maze Layout (1 = Wall, 0 = Path)
-    // Organized visually: row 0 is top, row 7 is bottom
     wire [63:0] MAZE = {
         8'b00000000, // Row 7 (Bottom)
         8'b01100110,
@@ -78,21 +77,30 @@ module tt_um_vga_example (
     reg [9:0]  power_timer;     // Powerup timer (600 frames = 10 sec)
 
     // Dot mapping (Pacman's current grid cell)
-    wire [2:0] p_col = ((px - ARENA_L) >> 5);
-    wire [2:0] p_row = ((py - ARENA_T) >> 5);
+    wire [9:0] p_norm_x = px - ARENA_L;
+    wire [9:0] p_norm_y = py - ARENA_T;
+    wire [2:0] p_col = p_norm_x[7:5];
+    wire [2:0] p_row = p_norm_y[7:5];
     wire [5:0] p_idx = {p_row, p_col};
 
-    // --- WALL COLLISION DETECTION ---
-    // Calculate bounding box edges mapped to grid cells safely
-    wire [2:0] px_L = ((px - RADIUS) >= ARENA_L) ? ((px - RADIUS - ARENA_L) >> 5) : 0;
-    wire [2:0] px_R = ((px + RADIUS) <= ARENA_R) ? ((px + RADIUS - ARENA_L) >> 5) : 7;
-    wire [2:0] py_T = ((py - RADIUS) >= ARENA_T) ? ((py - RADIUS - ARENA_T) >> 5) : 0;
-    wire [2:0] py_B = ((py + RADIUS) <= ARENA_B) ? ((py + RADIUS - ARENA_T) >> 5) : 7;
+    // --- WALL COLLISION DETECTION (Width-Truncation Fixed) ---
+    wire [9:0] px_L_calc = px - RADIUS - ARENA_L;
+    wire [2:0] px_L = ((px - RADIUS) >= ARENA_L) ? px_L_calc[7:5] : 3'd0;
+    wire [9:0] px_R_calc = px + RADIUS - ARENA_L;
+    wire [2:0] px_R = ((px + RADIUS) <= ARENA_R) ? px_R_calc[7:5] : 3'd7;
+    wire [9:0] py_T_calc = py - RADIUS - ARENA_T;
+    wire [2:0] py_T = ((py - RADIUS) >= ARENA_T) ? py_T_calc[7:5] : 3'd0;
+    wire [9:0] py_B_calc = py + RADIUS - ARENA_T;
+    wire [2:0] py_B = ((py + RADIUS) <= ARENA_B) ? py_B_calc[7:5] : 3'd7;
 
-    wire [2:0] py_next_T = ((py - 2 - RADIUS) >= ARENA_T) ? ((py - 2 - RADIUS - ARENA_T) >> 5) : 0;
-    wire [2:0] py_next_B = ((py + 2 + RADIUS) <= ARENA_B) ? ((py + 2 + RADIUS - ARENA_T) >> 5) : 7;
-    wire [2:0] px_next_L = ((px - 2 - RADIUS) >= ARENA_L) ? ((px - 2 - RADIUS - ARENA_L) >> 5) : 0;
-    wire [2:0] px_next_R = ((px + 2 + RADIUS) <= ARENA_R) ? ((px + 2 + RADIUS - ARENA_L) >> 5) : 7;
+    wire [9:0] py_next_T_calc = py - 2 - RADIUS - ARENA_T;
+    wire [2:0] py_next_T = ((py - 2 - RADIUS) >= ARENA_T) ? py_next_T_calc[7:5] : 3'd0;
+    wire [9:0] py_next_B_calc = py + 2 + RADIUS - ARENA_T;
+    wire [2:0] py_next_B = ((py + 2 + RADIUS) <= ARENA_B) ? py_next_B_calc[7:5] : 3'd7;
+    wire [9:0] px_next_L_calc = px - 2 - RADIUS - ARENA_L;
+    wire [2:0] px_next_L = ((px - 2 - RADIUS) >= ARENA_L) ? px_next_L_calc[7:5] : 3'd0;
+    wire [9:0] px_next_R_calc = px + 2 + RADIUS - ARENA_L;
+    wire [2:0] px_next_R = ((px + 2 + RADIUS) <= ARENA_R) ? px_next_R_calc[7:5] : 3'd7;
 
     wire can_move_U = !(MAZE[{py_next_T, px_L}] | MAZE[{py_next_T, px_R}]);
     wire can_move_D = !(MAZE[{py_next_B, px_L}] | MAZE[{py_next_B, px_R}]);
@@ -100,15 +108,23 @@ module tt_um_vga_example (
     wire can_move_R = !(MAZE[{py_T, px_next_R}] | MAZE[{py_B, px_next_R}]);
 
     // Ghost collision helpers
-    wire [2:0] gx_L = ((gx - G_RADIUS) >= ARENA_L) ? ((gx - G_RADIUS - ARENA_L) >> 5) : 0;
-    wire [2:0] gx_R = ((gx + G_RADIUS) <= ARENA_R) ? ((gx + G_RADIUS - ARENA_L) >> 5) : 7;
-    wire [2:0] gy_T = ((gy - G_RADIUS) >= ARENA_T) ? ((gy - G_RADIUS - ARENA_T) >> 5) : 0;
-    wire [2:0] gy_B = ((gy + G_RADIUS) <= ARENA_B) ? ((gy + G_RADIUS - ARENA_T) >> 5) : 7;
+    wire [9:0] gx_L_calc = gx - G_RADIUS - ARENA_L;
+    wire [2:0] gx_L = ((gx - G_RADIUS) >= ARENA_L) ? gx_L_calc[7:5] : 3'd0;
+    wire [9:0] gx_R_calc = gx + G_RADIUS - ARENA_L;
+    wire [2:0] gx_R = ((gx + G_RADIUS) <= ARENA_R) ? gx_R_calc[7:5] : 3'd7;
+    wire [9:0] gy_T_calc = gy - G_RADIUS - ARENA_T;
+    wire [2:0] gy_T = ((gy - G_RADIUS) >= ARENA_T) ? gy_T_calc[7:5] : 3'd0;
+    wire [9:0] gy_B_calc = gy + G_RADIUS - ARENA_T;
+    wire [2:0] gy_B = ((gy + G_RADIUS) <= ARENA_B) ? gy_B_calc[7:5] : 3'd7;
 
-    wire [2:0] gy_next_T = ((gy - 1 - G_RADIUS) >= ARENA_T) ? ((gy - 1 - G_RADIUS - ARENA_T) >> 5) : 0;
-    wire [2:0] gy_next_B = ((gy + 1 + G_RADIUS) <= ARENA_B) ? ((gy + 1 + G_RADIUS - ARENA_T) >> 5) : 7;
-    wire [2:0] gx_next_L = ((gx - 1 - G_RADIUS) >= ARENA_L) ? ((gx - 1 - G_RADIUS - ARENA_L) >> 5) : 0;
-    wire [2:0] gx_next_R = ((gx + 1 + G_RADIUS) <= ARENA_R) ? ((gx + 1 + G_RADIUS - ARENA_L) >> 5) : 7;
+    wire [9:0] gy_next_T_calc = gy - 1 - G_RADIUS - ARENA_T;
+    wire [2:0] gy_next_T = ((gy - 1 - G_RADIUS) >= ARENA_T) ? gy_next_T_calc[7:5] : 3'd0;
+    wire [9:0] gy_next_B_calc = gy + 1 + G_RADIUS - ARENA_T;
+    wire [2:0] gy_next_B = ((gy + 1 + G_RADIUS) <= ARENA_B) ? gy_next_B_calc[7:5] : 3'd7;
+    wire [9:0] gx_next_L_calc = gx - 1 - G_RADIUS - ARENA_L;
+    wire [2:0] gx_next_L = ((gx - 1 - G_RADIUS) >= ARENA_L) ? gx_next_L_calc[7:5] : 3'd0;
+    wire [9:0] gx_next_R_calc = gx + 1 + G_RADIUS - ARENA_L;
+    wire [2:0] gx_next_R = ((gx + 1 + G_RADIUS) <= ARENA_R) ? gx_next_R_calc[7:5] : 3'd7;
 
     wire g_can_move_U = !(MAZE[{gy_next_T, gx_L}] | MAZE[{gy_next_T, gx_R}]);
     wire g_can_move_D = !(MAZE[{gy_next_B, gx_L}] | MAZE[{gy_next_B, gx_R}]);
@@ -117,15 +133,25 @@ module tt_um_vga_example (
 
     wire ghost_scared = (power_timer > 0);
 
-    // Game Update Loop
+    // Game Update Loop (Fixed Reset Structure for Yosys)
     always @(posedge clk or negedge rst_n) begin
-        if (!rst_n || btn_reset) begin
+        if (!rst_n) begin
+            // Hardware Asynchronous Reset
             state       <= 0;
             frame_ctr   <= 0;
             power_timer <= 0;
-            dots        <= ~MAZE;                 // Setup dots everywhere there isn't a wall
-            px          <= 240; py <= 224;        // Pacman start (Left path)
-            gx          <= 400; gy <= 256;        // Ghost start (Right path)
+            dots        <= ~MAZE;
+            px          <= 240; py <= 224;
+            gx          <= 400; gy <= 256;
+            pac_dir     <= 0;
+        end else if (btn_reset) begin
+            // Software Synchronous Reset
+            state       <= 0;
+            frame_ctr   <= 0;
+            power_timer <= 0;
+            dots        <= ~MAZE;
+            px          <= 240; py <= 224;
+            gx          <= 400; gy <= 256;
             pac_dir     <= 0;
         end else if (hpos == 0 && vpos == 0) begin
             frame_ctr <= frame_ctr + 1;
@@ -148,7 +174,6 @@ module tt_um_vga_example (
                 if (px >= ARENA_L && px < ARENA_R && py >= ARENA_T && py < ARENA_B) begin
                     if (dots[p_idx]) begin
                         dots[p_idx] <= 1'b0; // Eat it!
-                        // Check if it's a corner power pellet
                         if (p_idx == 0 || p_idx == 7 || p_idx == 56 || p_idx == 63) begin
                             power_timer <= 600; // 10 seconds power mode
                         end
@@ -159,7 +184,6 @@ module tt_um_vga_example (
                 if (ghost_scared) begin
                     // Run Away (Half Speed)
                     if (frame_ctr[0]) begin
-                        // Move with strict boundaries to avoid escaping arena
                         if      (gx < px && g_can_move_L && gx > ARENA_L + G_RADIUS + 1) gx <= gx - 1;
                         else if (gx > px && g_can_move_R && gx < ARENA_R - G_RADIUS - 1) gx <= gx + 1;
                         
@@ -168,7 +192,6 @@ module tt_um_vga_example (
                     end
                 end else begin
                     // Chase Mode (Normal Speed)
-                    // Move with strict boundaries to avoid escaping arena
                     if      (gx < px && g_can_move_R && gx < ARENA_R - G_RADIUS - 1) gx <= gx + 1;
                     else if (gx > px && g_can_move_L && gx > ARENA_L + G_RADIUS + 1) gx <= gx - 1;
                     
@@ -202,11 +225,14 @@ module tt_um_vga_example (
     wire draw_wall = (hpos >= ARENA_L - 4 && hpos <= ARENA_R + 3 && 
                       vpos >= ARENA_T - 4 && vpos <= ARENA_B + 3) && !in_arena;
 
-    wire [2:0] cell_col = (hpos - ARENA_L) >> 5;
-    wire [2:0] cell_row = (vpos - ARENA_T) >> 5;
+    // Use [7:5] and [4:0] slices instead of bitshift/mask to avoid truncation warnings
+    wire [9:0] hpos_norm = hpos - ARENA_L;
+    wire [9:0] vpos_norm = vpos - ARENA_T;
+    wire [2:0] cell_col = hpos_norm[7:5];
+    wire [2:0] cell_row = vpos_norm[7:5];
     wire [5:0] cell_idx = {cell_row, cell_col};
-    wire [4:0] cx       = (hpos - ARENA_L) & 31;
-    wire [4:0] cy       = (vpos - ARENA_T) & 31;
+    wire [4:0] cx       = hpos_norm[4:0];
+    wire [4:0] cy       = vpos_norm[4:0];
     
     // Maze Walls (Rendered as hollow blue squares)
     wire is_wall_cell = in_arena && MAZE[cell_idx];
