@@ -40,22 +40,12 @@ module tt_um_ezumaex_pacman (
         .vpos(vpos)
     );
 
-    // Synchronize physical buttons into the pixel-clock domain (single register stage to minimize area)
-    reg [4:0] buttons;
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            buttons <= 5'd0;
-        end else begin
-            buttons <= ui_in[4:0];
-        end
-    end
-
-    // Input Buttons
-    wire btn_up    = buttons[0];
-    wire btn_down  = buttons[1];
-    wire btn_left  = buttons[2];
-    wire btn_right = buttons[3];
-    wire btn_reset = buttons[4];
+    // Input Buttons directly from ui_in (sampled synchronously in vertical blanking)
+    wire btn_up    = ui_in[0];
+    wire btn_down  = ui_in[1];
+    wire btn_left  = ui_in[2];
+    wire btn_right = ui_in[3];
+    wire btn_reset = ui_in[4];
 
     // Arena Boundaries
     localparam ARENA_L = 10'd192;
@@ -87,36 +77,13 @@ module tt_um_ezumaex_pacman (
     reg [9:0]  power_timer;     // Powerup timer (600 frames = 10 sec)
 
     // Relative coordinates in arena [0..255]
-    wire [8:0] px_rel   = px[8:0] - 9'd192;
-    wire [8:0] py_rel   = py[8:0] - 9'd112;
+    wire [7:0] px_rel   = px[7:0] - 8'd192;
+    wire [7:0] py_rel   = py[7:0] - 8'd112;
     wire [2:0] p_col    = px_rel[7:5];
     wire [2:0] p_row    = py_rel[7:5];
     wire [4:0] p_cell_x = px_rel[4:0];
     wire [4:0] p_cell_y = py_rel[4:0];
     wire [5:0] p_idx    = {p_row, p_col};
-
-    // Direct 8x8 dot row/col indexing and 1-hot bit clearing (eliminates 64-bit barrel shifters)
-    wire [7:0] dec_col = 8'b1 << p_col;
-    wire [7:0] dec_row = 8'b1 << p_row;
-    wire [63:0] dot_eat_mask = {
-        dec_col & {8{dec_row[7]}},
-        dec_col & {8{dec_row[6]}},
-        dec_col & {8{dec_row[5]}},
-        dec_col & {8{dec_row[4]}},
-        dec_col & {8{dec_row[3]}},
-        dec_col & {8{dec_row[2]}},
-        dec_col & {8{dec_row[1]}},
-        dec_col & {8{dec_row[0]}}
-    };
-
-    wire [7:0] p_dot_row = (p_row == 3'd0) ? dots[7:0]   :
-                           (p_row == 3'd1) ? dots[15:8]  :
-                           (p_row == 3'd2) ? dots[23:16] :
-                           (p_row == 3'd3) ? dots[31:24] :
-                           (p_row == 3'd4) ? dots[39:32] :
-                           (p_row == 3'd5) ? dots[47:40] :
-                           (p_row == 3'd6) ? dots[55:48] : dots[63:56];
-    wire p_dot_val = p_dot_row[p_col];
 
     // Compact folded 4x4 quadrant maze wall checker (100% equivalent to MAZE[{r,c}])
     function is_wall;
@@ -149,8 +116,8 @@ module tt_um_ezumaex_pacman (
     wire can_move_R = !(is_wall(py_T, px_next_R) | is_wall(py_B, px_next_R));
 
     // Ghost collision helpers
-    wire [8:0] gx_rel   = gx[8:0] - 9'd192;
-    wire [8:0] gy_rel   = gy[8:0] - 9'd112;
+    wire [7:0] gx_rel   = gx[7:0] - 8'd192;
+    wire [7:0] gy_rel   = gy[7:0] - 8'd112;
     wire [2:0] g_col    = gx_rel[7:5];
     wire [2:0] g_row    = gy_rel[7:5];
     wire [4:0] g_cell_x = gx_rel[4:0];
@@ -178,25 +145,25 @@ module tt_um_ezumaex_pacman (
 
     wire ghost_scared = (power_timer > 0);
 
-    // Fast single-comparison entity collision check (avoids chained signed comparators)
-    wire [9:0] edx = (px >= gx) ? (px - gx) : (gx - px);
-    wire [9:0] edy = (py >= gy) ? (py - gy) : (gy - py);
-    wire entity_collision = (edx <= 10'd17) && (edy <= 10'd17);
+    // Fast 8-bit entity collision check
+    wire [7:0] edx = (px_rel >= gx_rel) ? (px_rel - gx_rel) : (gx_rel - px_rel);
+    wire [7:0] edy = (py_rel >= gy_rel) ? (py_rel - gy_rel) : (gy_rel - py_rel);
+    wire entity_collision = (edx <= 8'd17) && (edy <= 8'd17);
 
-    // Movement helper flags
-    wire p_can_U = can_move_U && (py > 10'd124);
-    wire p_can_D = can_move_D && (py < 10'd356);
-    wire p_can_L = can_move_L && (px > 10'd204);
-    wire p_can_R = can_move_R && (px < 10'd436);
+    // Movement helper flags (using 8-bit arena-relative comparisons)
+    wire p_can_U = can_move_U && (py_rel > 8'd12);
+    wire p_can_D = can_move_D && (py_rel < 8'd244);
+    wire p_can_L = can_move_L && (px_rel > 8'd12);
+    wire p_can_R = can_move_R && (px_rel < 8'd244);
 
-    wire gx_lt_px = (gx < px);
-    wire gx_gt_px = (gx > px);
-    wire gy_lt_py = (gy < py);
-    wire gy_gt_py = (gy > py);
-    wire g_can_L  = g_can_move_L && (gx > 10'd203);
-    wire g_can_R  = g_can_move_R && (gx < 10'd437);
-    wire g_can_U  = g_can_move_U && (gy > 10'd123);
-    wire g_can_D  = g_can_move_D && (gy < 10'd357);
+    wire gx_lt_px = (gx_rel < px_rel);
+    wire gx_gt_px = (gx_rel > px_rel);
+    wire gy_lt_py = (gy_rel < py_rel);
+    wire gy_gt_py = (gy_rel > py_rel);
+    wire g_can_L  = g_can_move_L && (gx_rel > 8'd11);
+    wire g_can_R  = g_can_move_R && (gx_rel < 8'd245);
+    wire g_can_U  = g_can_move_U && (gy_rel > 8'd11);
+    wire g_can_D  = g_can_move_D && (gy_rel < 8'd245);
 
     // Update in vertical blanking so each visible frame is coherent.
     // Game Update Loop
@@ -237,8 +204,8 @@ module tt_um_ezumaex_pacman (
                 end
 
                 // --- Dot & Powerup Eating ---
-                if (p_dot_val) begin
-                    dots <= dots & ~dot_eat_mask; // Eat it!
+                if (dots[p_idx]) begin
+                    dots[p_idx] <= 1'b0; // Eat it!
                     if ((p_row == 3'd0 || p_row == 3'd7) && (p_col == 3'd0 || p_col == 3'd7)) begin
                         power_timer <= 600; // 10 seconds power mode
                     end
@@ -302,72 +269,82 @@ module tt_um_ezumaex_pacman (
                                            (cy[4:2] == 3'b000 || cy[4:2] == 3'b111));
 
     // Dots and Power Pellets
-    wire [7:0] cell_dot_row = (cell_row == 3'd0) ? dots[7:0]   :
-                              (cell_row == 3'd1) ? dots[15:8]  :
-                              (cell_row == 3'd2) ? dots[23:16] :
-                              (cell_row == 3'd3) ? dots[31:24] :
-                              (cell_row == 3'd4) ? dots[39:32] :
-                              (cell_row == 3'd5) ? dots[47:40] :
-                              (cell_row == 3'd6) ? dots[55:48] : dots[63:56];
-    wire cell_dot_val = cell_dot_row[cell_col];
-
     wire is_power_cell = (cell_row == 3'd0 || cell_row == 3'd7) && (cell_col == 3'd0 || cell_col == 3'd7);
-    wire draw_dot = in_arena && cell_dot_val &&
+    wire draw_dot = in_arena && dots[cell_idx] &&
                     (is_power_cell ? (cx >= 10 && cx <= 21 && cy >= 10 && cy <= 21)   // Big Power Pellet
                                    : (cx >= 14 && cx <= 17 && cy >= 14 && cy <= 17)); // Normal Dot
 
-    // Exact integer radius-12 circle, without four large squaring multipliers.
+    // 4-bit integer radius-12 circle check (used directly for rendering)
+    function circle_hit;
+        input [3:0] ax, ay;
+        begin
+            case (ay)
+                4'd0: circle_hit = ax <= 4'd12;
+                4'd1,4'd2,4'd3,4'd4: circle_hit = ax <= 4'd11;
+                4'd5,4'd6: circle_hit = ax <= 4'd10;
+                4'd7: circle_hit = ax <= 4'd9;
+                4'd8: circle_hit = ax <= 4'd8;
+                4'd9: circle_hit = ax <= 4'd7;
+                4'd10: circle_hit = ax <= 4'd6;
+                4'd11: circle_hit = ax <= 4'd4;
+                4'd12: circle_hit = (ax == 4'd0);
+                default: circle_hit = 1'b0;
+            endcase
+        end
+    endfunction
+
+    // Exact integer radius-12 circle (12-bit interface preserved for testbench)
     function circle12;
         input [11:0] ax, ay;
         begin
             if (ax[11:4] != 8'd0 || ay[11:4] != 8'd0) begin
                 circle12 = 1'b0;
             end else begin
-                case (ay[3:0])
-                    4'd0: circle12 = ax[3:0] <= 4'd12;
-                    4'd1,4'd2,4'd3,4'd4: circle12 = ax[3:0] <= 4'd11;
-                    4'd5,4'd6: circle12 = ax[3:0] <= 4'd10;
-                    4'd7: circle12 = ax[3:0] <= 4'd9;
-                    4'd8: circle12 = ax[3:0] <= 4'd8;
-                    4'd9: circle12 = ax[3:0] <= 4'd7;
-                    4'd10: circle12 = ax[3:0] <= 4'd6;
-                    4'd11: circle12 = ax[3:0] <= 4'd4;
-                    4'd12: circle12 = ax[3:0] == 4'd0;
-                    default: circle12 = 1'b0;
-                endcase
+                circle12 = circle_hit(ax[3:0], ay[3:0]);
             end
         end
     endfunction
 
-    // Pacman Rendering
-    wire [9:0] pdx = (hpos >= px) ? (hpos - px) : (px - hpos);
-    wire [9:0] pdy = (vpos >= py) ? (vpos - py) : (py - vpos);
-    wire in_pac_box = (pdx <= 10'd12) && (pdy <= 10'd12);
+    // Pacman Rendering (8-bit arena-relative)
+    wire hpos_ge_px = (hpos_rel[7:0] >= px_rel);
+    wire [7:0] pdx = hpos_ge_px ? (hpos_rel[7:0] - px_rel) : (px_rel - hpos_rel[7:0]);
+    wire vpos_ge_py = (vpos_rel[7:0] >= py_rel);
+    wire [7:0] pdy = vpos_ge_py ? (vpos_rel[7:0] - py_rel) : (py_rel - vpos_rel[7:0]);
+    wire in_pac_box = in_arena && (pdx <= 8'd12) && (pdy <= 8'd12);
     wire [3:0] abs_dx = pdx[3:0];
     wire [3:0] abs_dy = pdy[3:0];
 
-    wire is_circle = in_pac_box && circle12({8'd0, abs_dx}, {8'd0, abs_dy});
+    wire is_circle = in_pac_box && circle_hit(abs_dx, abs_dy);
     wire mouth_open = frame_ctr[4];
-    wire horiz_mouth = (pac_dir == 0 && hpos > px) || (pac_dir == 1 && hpos < px);
-    wire vert_mouth  = (pac_dir == 2 && vpos < py) || (pac_dir == 3 && vpos > py);
-    wire is_mouth = mouth_open && (
-        (horiz_mouth && abs_dy < abs_dx) ||
-        (vert_mouth  && abs_dx < abs_dy)
-    );
+
+    wire hpos_gt_px = hpos_ge_px && (pdx != 8'd0);
+    wire hpos_lt_px = !hpos_ge_px;
+    wire vpos_gt_py = vpos_ge_py && (pdy != 8'd0);
+    wire vpos_lt_py = !vpos_ge_py;
+
+    wire pac_mouth_dir = (pac_dir == 2'd0) ? hpos_gt_px :
+                         (pac_dir == 2'd1) ? hpos_lt_px :
+                         (pac_dir == 2'd2) ? vpos_lt_py : vpos_gt_py;
+    wire pac_mouth_diag = pac_dir[1] ? (abs_dx < abs_dy) : (abs_dy < abs_dx);
+    wire is_mouth = mouth_open && pac_mouth_dir && pac_mouth_diag;
     wire draw_pac = is_circle && !is_mouth;
 
-    // Ghost Rendering
-    wire [9:0] gdx = (hpos >= gx) ? (hpos - gx) : (gx - hpos);
-    wire [9:0] gdy = (vpos >= gy) ? (vpos - gy) : (gy - vpos);
-    wire in_ghost_box = (gdx <= 10'd12) && (gdy <= 10'd12);
+    // Ghost Rendering (8-bit arena-relative)
+    wire hpos_ge_gx = (hpos_rel[7:0] >= gx_rel);
+    wire [7:0] gdx = hpos_ge_gx ? (hpos_rel[7:0] - gx_rel) : (gx_rel - hpos_rel[7:0]);
+    wire vpos_ge_gy = (vpos_rel[7:0] >= gy_rel);
+    wire [7:0] gdy = vpos_ge_gy ? (vpos_rel[7:0] - gy_rel) : (gy_rel - vpos_rel[7:0]);
+    wire in_ghost_box = in_arena && (gdx <= 8'd12) && (gdy <= 8'd12);
     wire [3:0] abs_gdx = gdx[3:0];
     wire [3:0] abs_gdy = gdy[3:0];
 
-    wire ghost_head = in_ghost_box && (vpos <= gy) && circle12({8'd0, abs_gdx}, {8'd0, abs_gdy});
-    wire ghost_body = in_ghost_box && (vpos > gy);
-    wire cut_leg = in_ghost_box && (vpos > gy + 10'd8) && (abs_gdx < 4'd8 && !abs_gdx[1]); // Wavy bottom (0, 1, 4, 5)
+    wire vpos_gt_gy = vpos_ge_gy && (gdy != 8'd0);
 
-    wire draw_ghost_eye = in_ghost_box && (vpos <= gy) && (abs_gdy >= 4'd2 && abs_gdy <= 4'd6) && (abs_gdx >= 4'd3 && abs_gdx <= 4'd6);
+    wire ghost_head = in_ghost_box && (!vpos_gt_gy) && circle_hit(abs_gdx, abs_gdy);
+    wire ghost_body = in_ghost_box && vpos_gt_gy;
+    wire cut_leg = in_ghost_box && vpos_gt_gy && (abs_gdy > 4'd8) && (abs_gdx < 4'd8 && !abs_gdx[1]); // Wavy bottom (0, 1, 4, 5)
+
+    wire draw_ghost_eye = in_ghost_box && (!vpos_gt_gy) && (abs_gdy >= 4'd2 && abs_gdy <= 4'd6) && (abs_gdx >= 4'd3 && abs_gdx <= 4'd6);
     wire draw_ghost_base = (ghost_head || ghost_body) && !cut_leg;
     wire draw_ghost = draw_ghost_base && !draw_ghost_eye;
 
@@ -375,6 +352,7 @@ module tt_um_ezumaex_pacman (
     wire is_lose_flash = (state == 2) && frame_ctr[5];
     wire is_win_flash  = (state == 1) && frame_ctr[5];
     wire scared_flash  = (power_timer > 0 && power_timer < 120) && frame_ctr[4]; // Flashes when ending
+    wire wall_pixel    = draw_maze_wall | draw_wall;
 
     wire r_val = is_lose_flash ? 1'b1 :
                  is_win_flash  ? 1'b0 :
@@ -389,7 +367,7 @@ module tt_um_ezumaex_pacman (
                  draw_ghost ? (ghost_scared) :
                  draw_pac   ? 1'b0 :
                  draw_dot   ? (!is_power_cell | !frame_ctr[4]) :
-                 (draw_maze_wall | draw_wall);
+                 wall_pixel;
 
     wire g1_val = is_lose_flash ? 1'b0 :
                   is_win_flash  ? 1'b1 :
@@ -405,7 +383,7 @@ module tt_um_ezumaex_pacman (
                   draw_ghost ? (ghost_scared) :
                   draw_pac   ? 1'b1 :
                   draw_dot   ? (!is_power_cell | !frame_ctr[4]) :
-                  (draw_maze_wall | draw_wall);
+                  wall_pixel;
 
     wire [1:0] r_out = {2{r_val}};
     wire [1:0] g_out = {g1_val, g0_val};
@@ -429,12 +407,10 @@ module tt_um_ezumaex_pacman (
         ena,
         uio_in,
         ui_in[7:5],
-        px_rel[8],
-        py_rel[8],
-        gx_rel[8],
-        gy_rel[8],
-        p_idx,
-        cell_idx,
+        px[9:8],
+        py[9:8],
+        gx[9:8],
+        gy[9:8],
         1'b0
     };
 
