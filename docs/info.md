@@ -7,13 +7,12 @@ You can also include images in this folder and reference them in the markdown. E
 512 kb in size, and the combined size of all images must be less than 1 MB.
 -->
 
-## How it works
+## How it 
 
-Explain how your project works
+Explain how your project 
 
-## How to test
+## How to 
 
-Explain how to use your project
 
 ## External hardware
 
