@@ -1,5 +1,5 @@
 /*
- * Pacman-style Arena Minigame - DX Edition (Fixed Bounds & Synthesis)
+ * Pacman-style Arena Minigame - DX Edition (Strict Linter Fixed)
  * Features: Maze Walls, Power Pellets, Fleeing Ghost AI
  * 
  * Controls:
@@ -83,7 +83,7 @@ module tt_um_vga_example (
     wire [2:0] p_row = p_norm_y[7:5];
     wire [5:0] p_idx = {p_row, p_col};
 
-    // --- WALL COLLISION DETECTION (Width-Truncation Fixed) ---
+    // --- WALL COLLISION DETECTION ---
     wire [9:0] px_L_calc = px - RADIUS - ARENA_L;
     wire [2:0] px_L = ((px - RADIUS) >= ARENA_L) ? px_L_calc[7:5] : 3'd0;
     wire [9:0] px_R_calc = px + RADIUS - ARENA_L;
@@ -133,7 +133,7 @@ module tt_um_vga_example (
 
     wire ghost_scared = (power_timer > 0);
 
-    // Game Update Loop (Fixed Reset Structure for Yosys)
+    // Game Update Loop
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             // Hardware Asynchronous Reset
@@ -225,9 +225,9 @@ module tt_um_vga_example (
     wire draw_wall = (hpos >= ARENA_L - 4 && hpos <= ARENA_R + 3 && 
                       vpos >= ARENA_T - 4 && vpos <= ARENA_B + 3) && !in_arena;
 
-    // Use [7:5] and [4:0] slices instead of bitshift/mask to avoid truncation warnings
     wire [9:0] hpos_norm = hpos - ARENA_L;
     wire [9:0] vpos_norm = vpos - ARENA_T;
+    
     wire [2:0] cell_col = hpos_norm[7:5];
     wire [2:0] cell_row = vpos_norm[7:5];
     wire [5:0] cell_idx = {cell_row, cell_col};
@@ -328,7 +328,32 @@ module tt_um_vga_example (
     assign uio_out = 8'b0;
     assign uio_oe  = 8'b0;
 
-    // Tie off unused inputs
-    wire _unused = &{ena, uio_in, ui_in[7:5], 1'b0};
+    // Tie off ALL unused signals cleanly to satisfy the linter
+    wire _unused = &{
+        ena, 
+        uio_in, 
+        ui_in[7:5],
+        p_norm_x[9:8], p_norm_x[4:0],
+        p_norm_y[9:8], p_norm_y[4:0],
+        px_L_calc[9:8], px_L_calc[4:0],
+        px_R_calc[9:8], px_R_calc[4:0],
+        py_T_calc[9:8], py_T_calc[4:0],
+        py_B_calc[9:8], py_B_calc[4:0],
+        py_next_T_calc[9:8], py_next_T_calc[4:0],
+        py_next_B_calc[9:8], py_next_B_calc[4:0],
+        px_next_L_calc[9:8], px_next_L_calc[4:0],
+        px_next_R_calc[9:8], px_next_R_calc[4:0],
+        gx_L_calc[9:8], gx_L_calc[4:0],
+        gx_R_calc[9:8], gx_R_calc[4:0],
+        gy_T_calc[9:8], gy_T_calc[4:0],
+        gy_B_calc[9:8], gy_B_calc[4:0],
+        gy_next_T_calc[9:8], gy_next_T_calc[4:0],
+        gy_next_B_calc[9:8], gy_next_B_calc[4:0],
+        gx_next_L_calc[9:8], gx_next_L_calc[4:0],
+        gx_next_R_calc[9:8], gx_next_R_calc[4:0],
+        hpos_norm[9:8], 
+        vpos_norm[9:8],
+        1'b0
+    };
 
 endmodule
