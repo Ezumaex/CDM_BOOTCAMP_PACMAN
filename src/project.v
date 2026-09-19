@@ -40,15 +40,13 @@ module tt_um_ezumaex_pacman (
         .vpos(vpos)
     );
 
-    // Synchronize physical buttons into the pixel-clock domain.
-    reg [4:0] buttons_meta, buttons;
+    // Synchronize physical buttons into the pixel-clock domain (single register stage to minimize area)
+    reg [4:0] buttons;
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            buttons_meta <= 5'd0;
             buttons <= 5'd0;
         end else begin
-            buttons_meta <= ui_in[4:0];
-            buttons <= buttons_meta;
+            buttons <= ui_in[4:0];
         end
     end
 
@@ -84,48 +82,50 @@ module tt_um_ezumaex_pacman (
     reg [9:0]  px, py;          // Pacman coordinates
     reg [9:0]  gx, gy;          // Ghost coordinates
     reg [1:0]  pac_dir;         // Pacman facing: 0=R, 1=L, 2=U, 3=D
-    reg [5:0] frame_ctr;       // Animation counter
+    reg [5:0]  frame_ctr;       // Animation counter
     reg [63:0] dots;            // 8x8 Grid of dots
     reg [9:0]  power_timer;     // Powerup timer (600 frames = 10 sec)
 
-    // Dot mapping (Pacman's current grid cell)
-    wire [9:0] p_norm_x = px - ARENA_L;
-    wire [9:0] p_norm_y = py - ARENA_T;
-    wire [2:0] p_col = p_norm_x[7:5];
-    wire [2:0] p_row = p_norm_y[7:5];
-    wire [5:0] p_idx = {p_row, p_col};
+    // Relative coordinates in arena [0..255]
+    wire [8:0] px_rel = px[8:0] - 9'd192;
+    wire [8:0] py_rel = py[8:0] - 9'd112;
+    wire [2:0] p_col  = px_rel[7:5];
+    wire [2:0] p_row  = py_rel[7:5];
+    wire [5:0] p_idx  = {p_row, p_col};
 
-    // Function to check if a cell is a wall in the 8x8 maze (100% equivalent to MAZE[{r,c}])
+    // Compact folded 4x4 quadrant maze wall checker (100% equivalent to MAZE[{r,c}])
     function is_wall;
         input [2:0] r, c;
+        reg [1:0] rf, cf;
         begin
-            case (r)
-                3'd1, 3'd6: is_wall = (c == 3'd1 || c == 3'd2 || c == 3'd5 || c == 3'd6);
-                3'd2, 3'd5: is_wall = (c == 3'd1 || c == 3'd6);
-                3'd3, 3'd4: is_wall = (c == 3'd3 || c == 3'd4);
-                default:    is_wall = 1'b0;
-            endcase
+            rf = r[2] ? ~r[1:0] : r[1:0];
+            cf = c[2] ? ~c[1:0] : c[1:0];
+            is_wall = (rf == 2'd1 && (cf == 2'd1 || cf == 2'd2)) ||
+                      (rf == 2'd2 && cf == 2'd1) ||
+                      (rf == 2'd3 && cf == 2'd3);
         end
     endfunction
 
     // --- WALL COLLISION DETECTION ---
-    wire [9:0] px_L_calc = px - 10'd203;
-    wire [2:0] px_L = (px >= 10'd203) ? px_L_calc[7:5] : 3'd0;
-    wire [9:0] px_R_calc = px - 10'd181;
-    wire [2:0] px_R = (px < 10'd437) ? px_R_calc[7:5] : 3'd7;
-    wire [9:0] py_T_calc = py - 10'd123;
-    wire [2:0] py_T = (py >= 10'd123) ? py_T_calc[7:5] : 3'd0;
-    wire [9:0] py_B_calc = py - 10'd101;
-    wire [2:0] py_B = (py < 10'd357) ? py_B_calc[7:5] : 3'd7;
+    wire [8:0] px_sub_11 = px_rel - 9'd11;
+    wire [8:0] px_add_11 = px_rel + 9'd11;
+    wire [8:0] py_sub_11 = py_rel - 9'd11;
+    wire [8:0] py_add_11 = py_rel + 9'd11;
 
-    wire [9:0] py_next_T_calc = py - 10'd125;
-    wire [2:0] py_next_T = (py >= 10'd125) ? py_next_T_calc[7:5] : 3'd0;
-    wire [9:0] py_next_B_calc = py - 10'd99;
-    wire [2:0] py_next_B = (py < 10'd355) ? py_next_B_calc[7:5] : 3'd7;
-    wire [9:0] px_next_L_calc = px - 10'd205;
-    wire [2:0] px_next_L = (px >= 10'd205) ? px_next_L_calc[7:5] : 3'd0;
-    wire [9:0] px_next_R_calc = px - 10'd179;
-    wire [2:0] px_next_R = (px < 10'd435) ? px_next_R_calc[7:5] : 3'd7;
+    wire [8:0] px_sub_13 = px_rel - 9'd13;
+    wire [8:0] px_add_13 = px_rel + 9'd13;
+    wire [8:0] py_sub_13 = py_rel - 9'd13;
+    wire [8:0] py_add_13 = py_rel + 9'd13;
+
+    wire [2:0] px_L = px_sub_11[7:5];
+    wire [2:0] px_R = px_add_11[8] ? 3'd7 : px_add_11[7:5];
+    wire [2:0] py_T = py_sub_11[7:5];
+    wire [2:0] py_B = py_add_11[8] ? 3'd7 : py_add_11[7:5];
+
+    wire [2:0] py_next_T = py_sub_13[7:5];
+    wire [2:0] py_next_B = py_add_13[8] ? 3'd7 : py_add_13[7:5];
+    wire [2:0] px_next_L = px_sub_13[7:5];
+    wire [2:0] px_next_R = px_add_13[8] ? 3'd7 : px_add_13[7:5];
 
     wire can_move_U = !(is_wall(py_next_T, px_L) | is_wall(py_next_T, px_R));
     wire can_move_D = !(is_wall(py_next_B, px_L) | is_wall(py_next_B, px_R));
@@ -133,23 +133,28 @@ module tt_um_ezumaex_pacman (
     wire can_move_R = !(is_wall(py_T, px_next_R) | is_wall(py_B, px_next_R));
 
     // Ghost collision helpers
-    wire [9:0] gx_L_calc = gx - 10'd202;
-    wire [2:0] gx_L = (gx >= 10'd202) ? gx_L_calc[7:5] : 3'd0;
-    wire [9:0] gx_R_calc = gx - 10'd182;
-    wire [2:0] gx_R = (gx < 10'd438) ? gx_R_calc[7:5] : 3'd7;
-    wire [9:0] gy_T_calc = gy - 10'd122;
-    wire [2:0] gy_T = (gy >= 10'd122) ? gy_T_calc[7:5] : 3'd0;
-    wire [9:0] gy_B_calc = gy - 10'd102;
-    wire [2:0] gy_B = (gy < 10'd358) ? gy_B_calc[7:5] : 3'd7;
+    wire [8:0] gx_rel = gx[8:0] - 9'd192;
+    wire [8:0] gy_rel = gy[8:0] - 9'd112;
 
-    wire [9:0] gy_next_T_calc = gy - 10'd123;
-    wire [2:0] gy_next_T = (gy >= 10'd123) ? gy_next_T_calc[7:5] : 3'd0;
-    wire [9:0] gy_next_B_calc = gy - 10'd101;
-    wire [2:0] gy_next_B = (gy < 10'd357) ? gy_next_B_calc[7:5] : 3'd7;
-    wire [9:0] gx_next_L_calc = gx - 10'd203;
-    wire [2:0] gx_next_L = (gx >= 10'd203) ? gx_next_L_calc[7:5] : 3'd0;
-    wire [9:0] gx_next_R_calc = gx - 10'd181;
-    wire [2:0] gx_next_R = (gx < 10'd437) ? gx_next_R_calc[7:5] : 3'd7;
+    wire [8:0] gx_sub_10 = gx_rel - 9'd10;
+    wire [8:0] gx_add_10 = gx_rel + 9'd10;
+    wire [8:0] gy_sub_10 = gy_rel - 9'd10;
+    wire [8:0] gy_add_10 = gy_rel + 9'd10;
+
+    wire [8:0] gx_sub_11 = gx_rel - 9'd11;
+    wire [8:0] gx_add_11 = gx_rel + 9'd11;
+    wire [8:0] gy_sub_11 = gy_rel - 9'd11;
+    wire [8:0] gy_add_11 = gy_rel + 9'd11;
+
+    wire [2:0] gx_L = gx_sub_10[7:5];
+    wire [2:0] gx_R = gx_add_10[8] ? 3'd7 : gx_add_10[7:5];
+    wire [2:0] gy_T = gy_sub_10[7:5];
+    wire [2:0] gy_B = gy_add_10[8] ? 3'd7 : gy_add_10[7:5];
+
+    wire [2:0] gy_next_T = gy_sub_11[7:5];
+    wire [2:0] gy_next_B = gy_add_11[8] ? 3'd7 : gy_add_11[7:5];
+    wire [2:0] gx_next_L = gx_sub_11[7:5];
+    wire [2:0] gx_next_R = gx_add_11[8] ? 3'd7 : gx_add_11[7:5];
 
     wire g_can_move_U = !(is_wall(gy_next_T, gx_L) | is_wall(gy_next_T, gx_R));
     wire g_can_move_D = !(is_wall(gy_next_B, gx_L) | is_wall(gy_next_B, gx_R));
@@ -158,11 +163,10 @@ module tt_um_ezumaex_pacman (
 
     wire ghost_scared = (power_timer > 0);
 
-    // Fast entity collision check
-    wire signed [10:0] diff_px_gx = $signed({1'b0, px}) - $signed({1'b0, gx});
-    wire signed [10:0] diff_py_gy = $signed({1'b0, py}) - $signed({1'b0, gy});
-    wire entity_collision = (diff_px_gx > -11'sd18 && diff_px_gx < 11'sd18) &&
-                            (diff_py_gy > -11'sd18 && diff_py_gy < 11'sd18);
+    // Fast single-comparison entity collision check (avoids chained signed comparators)
+    wire [9:0] offset_x = px - gx + 10'd17;
+    wire [9:0] offset_y = py - gy + 10'd17;
+    wire entity_collision = (offset_x <= 10'd34) && (offset_y <= 10'd34);
 
     // Update in vertical blanking so each visible frame is coherent.
     // Game Update Loop
@@ -250,34 +254,30 @@ module tt_um_ezumaex_pacman (
 
     // --- RENDERING LOGIC ---
 
-    wire in_arena = (hpos >= ARENA_L && hpos < ARENA_R && vpos >= ARENA_T && vpos < ARENA_B);
-    wire draw_wall = (hpos >= ARENA_L - 4 && hpos <= ARENA_R + 3 &&
-                      vpos >= ARENA_T - 4 && vpos <= ARENA_B + 3) && !in_arena;
+    wire [9:0] hpos_rel = hpos - 10'd192;
+    wire [9:0] vpos_rel = vpos - 10'd112;
+    wire in_arena = (hpos_rel[9:8] == 2'b00) && (vpos_rel[9:8] == 2'b00);
 
-    wire [9:0] hpos_norm = hpos - ARENA_L;
-    wire [9:0] vpos_norm = vpos - ARENA_T;
+    wire [9:0] hpos_border = hpos - 10'd188;
+    wire [9:0] vpos_border = vpos - 10'd108;
+    wire draw_wall = (hpos_border <= 10'd263 && vpos_border <= 10'd263) && !in_arena;
 
-    wire [2:0] cell_col = hpos_norm[7:5];
-    wire [2:0] cell_row = vpos_norm[7:5];
+    wire [2:0] cell_col = hpos_rel[7:5];
+    wire [2:0] cell_row = vpos_rel[7:5];
     wire [5:0] cell_idx = {cell_row, cell_col};
-    wire [4:0] cx       = hpos_norm[4:0];
-    wire [4:0] cy       = vpos_norm[4:0];
+    wire [4:0] cx       = hpos_rel[4:0];
+    wire [4:0] cy       = vpos_rel[4:0];
 
     // Maze Walls (Rendered as hollow blue squares)
     wire is_wall_cell = in_arena && is_wall(cell_row, cell_col);
-    wire draw_maze_wall = is_wall_cell && (cx < 4 || cx > 27 || cy < 4 || cy > 27);
+    wire draw_maze_wall = is_wall_cell && ((cx[4:2] == 3'b000 || cx[4:2] == 3'b111) ||
+                                           (cy[4:2] == 3'b000 || cy[4:2] == 3'b111));
 
     // Dots and Power Pellets
     wire is_power_cell = (cell_row == 3'd0 || cell_row == 3'd7) && (cell_col == 3'd0 || cell_col == 3'd7);
-    wire draw_dot = in_arena && !is_wall_cell && dots[cell_idx] &&
+    wire draw_dot = in_arena && dots[cell_idx] &&
                     (is_power_cell ? (cx >= 10 && cx <= 21 && cy >= 10 && cy <= 21)   // Big Power Pellet
                                    : (cx >= 14 && cx <= 17 && cy >= 14 && cy <= 17)); // Normal Dot
-
-    // Pacman Rendering
-    wire signed [11:0] dx = $signed({2'b00, hpos}) - $signed({2'b00, px});
-    wire signed [11:0] dy = $signed({2'b00, vpos}) - $signed({2'b00, py});
-    wire [11:0] abs_dx = dx[11] ? -dx : dx;
-    wire [11:0] abs_dy = dy[11] ? -dy : dy;
 
     // Exact integer radius-12 circle, without four large squaring multipliers.
     function circle12;
@@ -301,27 +301,38 @@ module tt_um_ezumaex_pacman (
             end
         end
     endfunction
-    wire is_circle = circle12(abs_dx, abs_dy);
+
+    // Pacman Rendering (bounded 25x25 box eliminates wide comparators and subtractors)
+    wire [9:0] p_diff_x = hpos - px + 10'd12;
+    wire [9:0] p_diff_y = vpos - py + 10'd12;
+    wire in_pac_box = (p_diff_x <= 10'd24) && (p_diff_y <= 10'd24);
+
+    wire [3:0] abs_dx = (p_diff_x >= 10'd12) ? (p_diff_x[4:0] - 5'd12) : (5'd12 - p_diff_x[4:0]);
+    wire [3:0] abs_dy = (p_diff_y >= 10'd12) ? (p_diff_y[4:0] - 5'd12) : (5'd12 - p_diff_y[4:0]);
+
+    wire is_circle = in_pac_box && circle12({8'd0, abs_dx}, {8'd0, abs_dy});
     wire mouth_open = frame_ctr[4];
-    wire horiz_mouth = (pac_dir == 0 && dx > 0) || (pac_dir == 1 && dx < 0);
-    wire vert_mouth  = (pac_dir == 2 && dy < 0) || (pac_dir == 3 && dy > 0);
+    wire horiz_mouth = (pac_dir == 0 && p_diff_x > 10'd12) || (pac_dir == 1 && p_diff_x < 10'd12);
+    wire vert_mouth  = (pac_dir == 2 && p_diff_y < 10'd12) || (pac_dir == 3 && p_diff_y > 10'd12);
     wire is_mouth = mouth_open && (
         (horiz_mouth && abs_dy < abs_dx) ||
         (vert_mouth  && abs_dx < abs_dy)
     );
     wire draw_pac = is_circle && !is_mouth;
 
-    // Ghost Rendering
-    wire signed [11:0] gdx = $signed({2'b00, hpos}) - $signed({2'b00, gx});
-    wire signed [11:0] gdy = $signed({2'b00, vpos}) - $signed({2'b00, gy});
-    wire [11:0] abs_gdx    = gdx[11] ? -gdx : gdx;
+    // Ghost Rendering (bounded 25x25 box eliminates wide comparators and subtractors)
+    wire [9:0] g_diff_x = hpos - gx + 10'd12;
+    wire [9:0] g_diff_y = vpos - gy + 10'd12;
+    wire in_ghost_box = (g_diff_x <= 10'd24) && (g_diff_y <= 10'd24);
 
-    wire [11:0] abs_gdy = gdy[11] ? -gdy : gdy;
-    wire ghost_head = circle12(abs_gdx, abs_gdy) && (gdy <= 0);
-    wire ghost_body = (abs_gdx <= 12) && (gdy > 0 && gdy <= 12);
-    wire cut_leg = (gdy > 8) && (abs_gdx[11:3] == 9'd0 && !abs_gdx[1]); // Wavy bottom (0, 1, 4, 5)
+    wire [3:0] abs_gdx = (g_diff_x >= 10'd12) ? (g_diff_x[4:0] - 5'd12) : (5'd12 - g_diff_x[4:0]);
+    wire [3:0] abs_gdy = (g_diff_y >= 10'd12) ? (g_diff_y[4:0] - 5'd12) : (5'd12 - g_diff_y[4:0]);
 
-    wire draw_ghost_eye = (gdy >= -6 && gdy <= -2) && (abs_gdx >= 3 && abs_gdx <= 6);
+    wire ghost_head = in_ghost_box && (g_diff_y <= 10'd12) && circle12({8'd0, abs_gdx}, {8'd0, abs_gdy});
+    wire ghost_body = in_ghost_box && (g_diff_y > 10'd12);
+    wire cut_leg = (g_diff_y > 10'd20) && (abs_gdx < 4'd8 && !abs_gdx[1]); // Wavy bottom (0, 1, 4, 5)
+
+    wire draw_ghost_eye = in_ghost_box && (g_diff_y >= 10'd6 && g_diff_y <= 10'd10) && (abs_gdx >= 4'd3 && abs_gdx <= 4'd6);
     wire draw_ghost_base = (ghost_head || ghost_body) && !cut_leg;
     wire draw_ghost = draw_ghost_base && !draw_ghost_eye;
 
@@ -338,8 +349,7 @@ module tt_um_ezumaex_pacman (
     wire [1:0] eye_g   = ghost_scared ? (scared_flash ? 2'b00 : 2'b11) : 2'b11;
     wire [1:0] eye_b   = ghost_scared ? (scared_flash ? 2'b00 : 2'b00) : 2'b11;
 
-    wire [1:0] r_out = !display_on ? 2'b00 :
-                       is_lose_flash ? 2'b11 :
+    wire [1:0] r_out = is_lose_flash ? 2'b11 :
                        is_win_flash  ? 2'b00 :
                        draw_ghost_eye ? eye_r :
                        draw_ghost ? ghost_r :
@@ -347,8 +357,7 @@ module tt_um_ezumaex_pacman (
                        draw_dot   ? (is_power_cell && frame_ctr[4] ? 2'b00 : 2'b11) :
                        (draw_maze_wall | draw_wall) ? 2'b00 : 2'b00;
 
-    wire [1:0] g_out = !display_on ? 2'b00 :
-                       is_lose_flash ? 2'b00 :
+    wire [1:0] g_out = is_lose_flash ? 2'b00 :
                        is_win_flash  ? 2'b11 :
                        draw_ghost_eye ? eye_g :
                        draw_ghost ? ghost_g :
@@ -356,8 +365,7 @@ module tt_um_ezumaex_pacman (
                        draw_dot   ? (is_power_cell && frame_ctr[4] ? 2'b00 : 2'b11) :
                        (draw_maze_wall | draw_wall) ? 2'b01 : 2'b00;
 
-    wire [1:0] b_out = !display_on ? 2'b00 :
-                       is_lose_flash ? 2'b00 :
+    wire [1:0] b_out = is_lose_flash ? 2'b00 :
                        is_win_flash  ? 2'b00 :
                        draw_ghost_eye ? eye_b :
                        draw_ghost ? ghost_b :
@@ -366,12 +374,12 @@ module tt_um_ezumaex_pacman (
                        (draw_maze_wall | draw_wall) ? 2'b11 : 2'b00;
 
     // VGA output mapping (RGB222 on Tiny VGA PMOD)
-    assign uo_out[0] = r_out[1];
-    assign uo_out[4] = r_out[0];
-    assign uo_out[1] = g_out[1];
-    assign uo_out[5] = g_out[0];
-    assign uo_out[2] = b_out[1];
-    assign uo_out[6] = b_out[0];
+    assign uo_out[0] = display_on & r_out[1];
+    assign uo_out[4] = display_on & r_out[0];
+    assign uo_out[1] = display_on & g_out[1];
+    assign uo_out[5] = display_on & g_out[0];
+    assign uo_out[2] = display_on & b_out[1];
+    assign uo_out[6] = display_on & b_out[0];
     assign uo_out[3] = vsync;
     assign uo_out[7] = hsync;
 
@@ -383,26 +391,22 @@ module tt_um_ezumaex_pacman (
         ena,
         uio_in,
         ui_in[7:5],
-        p_norm_x[9:8], p_norm_x[4:0],
-        p_norm_y[9:8], p_norm_y[4:0],
-        px_L_calc[9:8], px_L_calc[4:0],
-        px_R_calc[9:8], px_R_calc[4:0],
-        py_T_calc[9:8], py_T_calc[4:0],
-        py_B_calc[9:8], py_B_calc[4:0],
-        py_next_T_calc[9:8], py_next_T_calc[4:0],
-        py_next_B_calc[9:8], py_next_B_calc[4:0],
-        px_next_L_calc[9:8], px_next_L_calc[4:0],
-        px_next_R_calc[9:8], px_next_R_calc[4:0],
-        gx_L_calc[9:8], gx_L_calc[4:0],
-        gx_R_calc[9:8], gx_R_calc[4:0],
-        gy_T_calc[9:8], gy_T_calc[4:0],
-        gy_B_calc[9:8], gy_B_calc[4:0],
-        gy_next_T_calc[9:8], gy_next_T_calc[4:0],
-        gy_next_B_calc[9:8], gy_next_B_calc[4:0],
-        gx_next_L_calc[9:8], gx_next_L_calc[4:0],
-        gx_next_R_calc[9:8], gx_next_R_calc[4:0],
-        hpos_norm[9:8],
-        vpos_norm[9:8],
+        px_sub_11[8], px_sub_11[4:0],
+        px_add_11[4:0],
+        py_sub_11[8], py_sub_11[4:0],
+        py_add_11[4:0],
+        px_sub_13[8], px_sub_13[4:0],
+        px_add_13[4:0],
+        py_sub_13[8], py_sub_13[4:0],
+        py_add_13[4:0],
+        gx_sub_10[8], gx_sub_10[4:0],
+        gx_add_10[4:0],
+        gy_sub_10[8], gy_sub_10[4:0],
+        gy_add_10[4:0],
+        gx_sub_11[8], gx_sub_11[4:0],
+        gx_add_11[4:0],
+        gy_sub_11[8], gy_sub_11[4:0],
+        gy_add_11[4:0],
         1'b0
     };
 
