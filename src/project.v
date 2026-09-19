@@ -203,12 +203,10 @@ module tt_um_ezumaex_pacman (
                 end
 
                 // --- Dot & Powerup Eating ---
-                if (px >= ARENA_L && px < ARENA_R && py >= ARENA_T && py < ARENA_B) begin
-                    if (dots[p_idx]) begin
-                        dots[p_idx] <= 1'b0; // Eat it!
-                        if (p_idx == 0 || p_idx == 7 || p_idx == 56 || p_idx == 63) begin
-                            power_timer <= 600; // 10 seconds power mode
-                        end
+                if (dots[p_idx]) begin
+                    dots[p_idx] <= 1'b0; // Eat it!
+                    if ((p_row == 3'd0 || p_row == 3'd7) && (p_col == 3'd0 || p_col == 3'd7)) begin
+                        power_timer <= 600; // 10 seconds power mode
                     end
                 end
 
@@ -270,7 +268,7 @@ module tt_um_ezumaex_pacman (
     wire draw_maze_wall = is_wall_cell && (cx < 4 || cx > 27 || cy < 4 || cy > 27);
 
     // Dots and Power Pellets
-    wire is_power_cell = (cell_idx == 0 || cell_idx == 7 || cell_idx == 56 || cell_idx == 63);
+    wire is_power_cell = (cell_row == 3'd0 || cell_row == 3'd7) && (cell_col == 3'd0 || cell_col == 3'd7);
     wire draw_dot = in_arena && !is_wall_cell && dots[cell_idx] &&
                     (is_power_cell ? (cx >= 10 && cx <= 21 && cy >= 10 && cy <= 21)   // Big Power Pellet
                                    : (cx >= 14 && cx <= 17 && cy >= 14 && cy <= 17)); // Normal Dot
@@ -321,9 +319,9 @@ module tt_um_ezumaex_pacman (
     wire [11:0] abs_gdy = gdy[11] ? -gdy : gdy;
     wire ghost_head = circle12(abs_gdx, abs_gdy) && (gdy <= 0);
     wire ghost_body = (abs_gdx <= 12) && (gdy > 0 && gdy <= 12);
-    wire cut_leg = (gdy > 8) && (abs_gdx == 4 || abs_gdx == 5 || abs_gdx == 0 || abs_gdx == 1); // Wavy bottom
+    wire cut_leg = (gdy > 8) && (abs_gdx[11:3] == 9'd0 && !abs_gdx[1]); // Wavy bottom (0, 1, 4, 5)
 
-    wire draw_ghost_eye = (gdy >= -6 && gdy <= -2) && ((gdx >= -6 && gdx <= -3) || (gdx >= 3 && gdx <= 6));
+    wire draw_ghost_eye = (gdy >= -6 && gdy <= -2) && (abs_gdx >= 3 && abs_gdx <= 6);
     wire draw_ghost_base = (ghost_head || ghost_body) && !cut_leg;
     wire draw_ghost = draw_ghost_base && !draw_ghost_eye;
 
