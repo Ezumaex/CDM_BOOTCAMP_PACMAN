@@ -1,10 +1,9 @@
-
 # Tiny Tapeout project information
 project:
-  title:        "123"      # Project title
-  author:       "123"      # Your name
-  discord:      "123"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "123"      # One line description of what your project does
+  title:        "VGA Pacman Arena Minigame"      # Project title
+  author:       "Your Name"                      # Your name
+  discord:      "YourDiscordUsername"            # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  description:  "A hardware-based Pacman minigame with maze walls, power pellets, and fleeing ghost AI rendered over VGA." # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
   clock_hz:     25175000       # Clock frequency in Hz (or 0 if not applicable)
 
@@ -22,11 +21,11 @@ project:
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
+  ui[0]: "UP"
+  ui[1]: "DOWN"
+  ui[2]: "LEFT"
+  ui[3]: "RIGHT"
+  ui[4]: "RESET"
   ui[5]: ""
   ui[6]: ""
   ui[7]: ""
