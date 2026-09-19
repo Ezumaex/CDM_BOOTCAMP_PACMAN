@@ -1,11 +1,11 @@
 # Tiny Tapeout project information
 project:
-  title:        "VGA Pacman Arena Minigame"      # Project title
-  author:       "Your Name"                      # Your name
-  discord:      "YourDiscordUsername"            # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "A hardware-based Pacman minigame with maze walls, power pellets, and fleeing ghost AI rendered over VGA." # One line description of what your project does
-  language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     25175000       # Clock frequency in Hz (or 0 if not applicable)
+  title:        "Pacman Arena Minigame"
+  author:       "Your Real Name or Username"
+  discord:      "YourDiscord"
+  description:  "A hardware-based Pacman minigame rendered over VGA."
+  language:     "Verilog" 
+  clock_hz:     25175000
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
